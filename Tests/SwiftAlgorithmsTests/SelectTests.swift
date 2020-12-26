@@ -12,7 +12,7 @@ final class SelectTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        select = QuickSelect()
+        select = ThreeWayQuickSelect()
     }
     
     override func tearDown() {
@@ -33,12 +33,24 @@ final class SelectTests: XCTestCase {
     }
     
     func testSelect() {
-        var array = [8,9,1,4,5,7,6,2,3,10]
-        let sorted = array.sorted()
-        
-        for i in 0..<array.count {
-            let element = select.select(&array, k: i)
-            XCTAssertEqual(element, sorted[i])
+        let tries = 100
+        let maxSize = 20
+        let maxNumber = 100
+
+        for _ in 0...tries {
+            let aSize = Int.random(in: 1...maxSize)
+            var a = [Int]()
+            
+            for _ in 0..<aSize {
+                a.append(Int.random(in: 0...maxNumber))
+            }
+            
+            let sorted = a.sorted()
+            
+            for i in 0..<a.count {
+                let element = select.select(&a, k: i)
+                XCTAssertEqual(element, sorted[i])
+            }
         }
     }
     
