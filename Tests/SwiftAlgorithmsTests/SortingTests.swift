@@ -12,7 +12,7 @@ final class SortingTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        sort = MergeSort()
+        sort = HeapSort()
     }
     
     override func tearDown() {
