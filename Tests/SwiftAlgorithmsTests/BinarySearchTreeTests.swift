@@ -8,11 +8,11 @@ import XCTest
 
 final class BinarySearchTreeTests: XCTestCase {
     
-    var bst: BinarySearchTree<Int, String>!
+    var bst: BinarySearchTreeImpl<Int, String>!
     
     override func setUp() {
         super.setUp()
-        bst = BinarySearchTree()
+        bst = BinarySearchTreeImpl()
     }
     
     override func tearDown() {
@@ -74,6 +74,20 @@ final class BinarySearchTreeTests: XCTestCase {
         XCTAssertEqual(bst.ceiling(key: 9), 10)
     }
     
+    func testSelect() {
+        bst.put(key: 5, value: "Five")
+        bst.put(key: 2, value: "Two")
+        bst.put(key: 10, value: "Ten")
+        bst.put(key: 4, value: "Four")
+        bst.put(key: 12, value: "Twelve")
+        bst.put(key: 0, value: "Zero")
+        
+        let ordered = [0,2,4,5,10,12]
+        for (index, element) in ordered.enumerated() {
+            XCTAssertEqual(bst.select(rank: index), element)
+        }
+    }
+    
     func testRank() {
         bst.put(key: 5, value: "Five")
         bst.put(key: 2, value: "Two")
@@ -81,40 +95,55 @@ final class BinarySearchTreeTests: XCTestCase {
         bst.put(key: 4, value: "Four")
         bst.put(key: 12, value: "Twelve")
         bst.put(key: 0, value: "Zero")
-        XCTAssertEqual(bst.rank(key: 10), 4)
+        
+        let ordered = [0,2,4,5,10,12]
+        for (index, element) in ordered.enumerated() {
+            XCTAssertEqual(bst.rank(key: element), index)
+        }
     }
     
     func testInorderIterator() {
         let values = [5,6,7,8,21,2,1,12]
         values.forEach { bst.put(key: $0, value: String($0)) }
-        var it = BinarySearchTreeInorderIterator<Int, String>(bst)
+        let it = BSTInorderIterator<Int, String>(bst)
         
-        var inorderKeys = [Int]()
-        while let key = it.next() { inorderKeys.append(key) }
+        var keys = [Int]()
+        while let key = it.next() { keys.append(key) }
         
-        XCTAssertEqual(inorderKeys, values.sorted())
+        XCTAssertEqual(keys, values.sorted())
     }
     
     func testPreorderIterator() {
         let values = [5,6,7,8,21,2,1,12]
         values.forEach { bst.put(key: $0, value: String($0)) }
-        var it = BinarySearchTreePreorderIterator<Int, String>(bst)
+        let it = BSTPreorderIterator<Int, String>(bst)
         
-        var preorderKeys = [Int]()
-        while let key = it.next() { preorderKeys.append(key) }
+        var keys = [Int]()
+        while let key = it.next() { keys.append(key) }
         
-        XCTAssertEqual(preorderKeys, [5,2,1,6,7,8,21,12])
+        XCTAssertEqual(keys, [5,2,1,6,7,8,21,12])
     }
     
     func testPostorderIterator() {
         let values = [5,6,7,8,21,2,1,12]
         values.forEach { bst.put(key: $0, value: String($0)) }
-        var it = BinarySearchTreePostorderIterator<Int, String>(bst)
+        let it = BSTPostorderIterator<Int, String>(bst)
         
-        var postorderKeys = [Int]()
-        while let key = it.next() { postorderKeys.append(key) }
+        var keys = [Int]()
+        while let key = it.next() { keys.append(key) }
         
-        XCTAssertEqual(postorderKeys, [1,2,12,21,8,7,6,5])
+        XCTAssertEqual(keys, [1,2,12,21,8,7,6,5])
+    }
+    
+    func testLevelIterator() {
+        let values = [5,6,7,8,21,2,1,12,3]
+        values.forEach { bst.put(key: $0, value: String($0)) }
+        let it = BSTLevelIterator<Int, String>(bst)
+        
+        var keys = [Int]()
+        while let key = it.next() { keys.append(key) }
+        
+        XCTAssertEqual(keys, [5,2,6,1,3,7,8,21,12])
     }
     
     func testDeleteMin() {
@@ -175,9 +204,12 @@ final class BinarySearchTreeTests: XCTestCase {
         ("testMin", testMin),
         ("testFloor", testFloor),
         ("testCeiling", testCeiling),
+        ("testSelect", testSelect),
+        ("testRank", testRank),
         ("testInorderIterator", testInorderIterator),
         ("testPreorderIterator", testPreorderIterator),
         ("testPostorderIterator", testPostorderIterator),
+        ("testLevelIterator", testLevelIterator),
         ("testDeleteMin", testDeleteMin),
         ("testDeleteCase0", testDeleteCase0),
         ("testDeleteCase1", testDeleteCase1),

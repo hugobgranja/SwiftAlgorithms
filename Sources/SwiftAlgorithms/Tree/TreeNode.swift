@@ -1,7 +1,5 @@
 //
 //  TreeNode.swift
-//  
-//
 //  Created by hg on 31/12/2020.
 //
 
@@ -19,5 +17,4 @@ public class TreeNode<Key, Value> where Key: Comparable {
         self.value = value
         self.count = 1
     }
-    
 }

@@ -1,7 +1,5 @@
 //
-//  File.swift
-//  
-//
+//  BinaryTree.swift
 //  Created by hg on 31/12/2020.
 //
 
@@ -15,5 +13,5 @@ protocol BinaryTree {
     func get(key: Key) -> Value?
     func delete(key: Key)
     func isEmpty() -> Bool
-    
+    func size() -> Int
 }
