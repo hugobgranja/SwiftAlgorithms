@@ -209,9 +209,10 @@ public class LLRBT<Key, Value>: BinarySearchTree where Key: Comparable {
         return node?.count ?? 0
     }
     
-    public func max() -> Key? {
+    public func max() -> KeyValuePair? {
         guard let root = root else { return nil }
-        return max(node: root).key
+        let maxNode = max(node: root)
+        return (maxNode.key, maxNode.value)
     }
     
     private func max(node: RBTNode<Key,Value>) -> RBTNode<Key,Value> {
@@ -220,9 +221,10 @@ public class LLRBT<Key, Value>: BinarySearchTree where Key: Comparable {
         return node
     }
     
-    public func min() -> Key? {
+    public func min() -> KeyValuePair? {
         guard let root = root else { return nil }
-        return min(node: root).key
+        let minNode = min(node: root)
+        return (minNode.key, minNode.value)
     }
     
     private func min(node: RBTNode<Key,Value>) -> RBTNode<Key,Value> {
@@ -230,9 +232,10 @@ public class LLRBT<Key, Value>: BinarySearchTree where Key: Comparable {
         while let someNode = node.left { node = someNode }
         return node
     }
-    public func floor(key: Key) -> Key? {
-        let node = floor(key: key, node: root)
-        return node?.key
+    
+    public func floor(key: Key) -> KeyValuePair? {
+        guard let node = floor(key: key, node: root) else { return nil }
+        return (node.key, node.value)
     }
     
     private func floor(key: Key, node: RBTNode<Key,Value>?) -> RBTNode<Key,Value>? {
@@ -246,9 +249,9 @@ public class LLRBT<Key, Value>: BinarySearchTree where Key: Comparable {
         else { return someNode }
     }
     
-    public func ceiling(key: Key) -> Key? {
-        let node = ceiling(key: key, node: root)
-        return node?.key
+    public func ceiling(key: Key) -> KeyValuePair? {
+        guard let node = ceiling(key: key, node: root) else { return nil }
+        return (node.key, node.value)
     }
     
     private func ceiling(key: Key, node: RBTNode<Key,Value>?) -> RBTNode<Key,Value>? {
@@ -262,18 +265,24 @@ public class LLRBT<Key, Value>: BinarySearchTree where Key: Comparable {
         else { return someNode }
     }
 
-    public func select(rank: Int) -> Key? {
-        guard rank >= 0 && rank < size() else { return nil }
-        return select(rank: rank, node: root)
+    public func select(rank: Int) -> KeyValuePair? {
+        guard
+            rank >= 0 && rank < size(),
+            let node = select(rank: rank, node: root)
+        else {
+            return nil
+        }
+        
+        return (node.key, node.value)
     }
     
-    private func select(rank: Int, node: RBTNode<Key,Value>?) -> Key? {
+    private func select(rank: Int, node: RBTNode<Key,Value>?) -> RBTNode<Key,Value>? {
         guard let someNode = node else { return nil }
         
         let leftSize = size(node: someNode.left)
         if leftSize > rank { return select(rank: rank, node: someNode.left) }
         if leftSize < rank { return select(rank: rank - leftSize - 1, node: someNode.right) }
-        else { return someNode.key }
+        else { return someNode }
     }
     
     public func rank(key: Key) -> Int {

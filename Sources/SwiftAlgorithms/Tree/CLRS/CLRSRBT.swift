@@ -302,8 +302,9 @@ public class CLRSRBT<Key, Value>: BinarySearchTree where Key: Comparable {
         return root.count
     }
     
-    public func max() -> Key? {
-        return max(node: root).key
+    public func max() -> KeyValuePair? {
+        guard case let .some(node) = max(node: root) else { return nil }
+        return (node.key, node.value)
     }
     
     private func max(node: CLRSNode<Key,Value>) -> CLRSNode<Key,Value> {
@@ -312,8 +313,9 @@ public class CLRSRBT<Key, Value>: BinarySearchTree where Key: Comparable {
         return x
     }
     
-    public func min() -> Key? {
-        return min(node: root).key
+    public func min() -> KeyValuePair? {
+        guard case let .some(node) = min(node: root) else { return nil }
+        return (node.key, node.value)
     }
     
     private func min(node: CLRSNode<Key,Value>) -> CLRSNode<Key,Value> {
@@ -322,9 +324,9 @@ public class CLRSRBT<Key, Value>: BinarySearchTree where Key: Comparable {
         return x
     }
     
-    public func floor(key: Key) -> Key? {
-        let node = floor(key: key, node: root)
-        return node.key
+    public func floor(key: Key) -> KeyValuePair? {
+        guard case let .some(node) = floor(key: key, node: root) else { return nil }
+        return (node.key, node.value)
     }
     
     private func floor(key: Key, node: CLRSNode<Key,Value>) -> CLRSNode<Key,Value> {
@@ -338,9 +340,9 @@ public class CLRSRBT<Key, Value>: BinarySearchTree where Key: Comparable {
         else { return rightFloor }
     }
     
-    public func ceiling(key: Key) -> Key? {
-        let node = ceiling(key: key, node: root)
-        return node.key
+    public func ceiling(key: Key) -> KeyValuePair? {
+        guard case let .some(node) = ceiling(key: key, node: root) else { return nil }
+        return (node.key, node.value)
     }
     
     private func ceiling(key: Key, node: CLRSNode<Key,Value>) -> CLRSNode<Key,Value> {
@@ -354,16 +356,23 @@ public class CLRSRBT<Key, Value>: BinarySearchTree where Key: Comparable {
         else { return leftFloor }
     }
 
-    public func select(rank: Int) -> Key? {
-        guard rank >= 0 && rank < size() else { return nil }
-        return select(rank: rank, node: root)
+    public func select(rank: Int) -> KeyValuePair? {
+        guard
+            rank >= 0 && rank < size(),
+            let node = select(rank: rank, node: root),
+            case let .some(someNode) = node
+        else {
+            return nil
+        }
+        
+        return (someNode.key, someNode.value)
     }
     
-    private func select(rank: Int, node: CLRSNode<Key,Value>) -> Key? {
+    private func select(rank: Int, node: CLRSNode<Key,Value>) -> CLRSNode<Key,Value>? {
         let leftSize = node.left.count
         if leftSize > rank { return select(rank: rank, node: node.left) }
         if leftSize < rank { return select(rank: rank - leftSize - 1, node: node.right) }
-        else { return node.key }
+        else { return node }
     }
     
     public func rank(key: Key) -> Int {

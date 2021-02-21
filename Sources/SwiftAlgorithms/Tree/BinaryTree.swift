@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol BinaryTree {
+public protocol BinaryTree {
     associatedtype Key
     associatedtype Value
     

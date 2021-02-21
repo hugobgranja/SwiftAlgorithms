@@ -5,15 +5,16 @@
 
 import Foundation
 
-protocol BinarySearchTree: BinaryTree {
+public protocol BinarySearchTree: BinaryTree {
     associatedtype Key
     associatedtype Value
+    typealias KeyValuePair = (key: Key, value: Value)
     
-    func max() -> Key?
-    func min() -> Key?
-    func floor(key: Key) -> Key?
-    func ceiling(key: Key) -> Key?
-    func select(rank: Int) -> Key?
+    func max() -> KeyValuePair?
+    func min() -> KeyValuePair?
+    func floor(key: Key) -> KeyValuePair?
+    func ceiling(key: Key) -> KeyValuePair?
+    func select(rank: Int) -> KeyValuePair?
     func rank(key: Key) -> Int
     func deleteMin()
 }

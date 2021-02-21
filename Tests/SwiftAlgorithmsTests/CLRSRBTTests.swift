@@ -43,7 +43,7 @@ final class CLRSRBTTests: XCTestCase {
         bst.put(key: 4, value: "Four")
         bst.put(key: 12, value: "Twelve")
         bst.put(key: 0, value: "Zero")
-        XCTAssertEqual(bst.max(), 12)
+        XCTAssertEqual(bst.max()?.key, 12)
     }
     
     func testMin() {
@@ -53,7 +53,7 @@ final class CLRSRBTTests: XCTestCase {
         bst.put(key: 4, value: "Four")
         bst.put(key: 12, value: "Twelve")
         bst.put(key: 0, value: "Zero")
-        XCTAssertEqual(bst.min(), 0)
+        XCTAssertEqual(bst.min()?.key, 0)
     }
     
     func testFloor() {
@@ -63,7 +63,8 @@ final class CLRSRBTTests: XCTestCase {
         bst.put(key: 4, value: "Four")
         bst.put(key: 12, value: "Twelve")
         bst.put(key: 0, value: "Zero")
-        XCTAssertEqual(bst.floor(key: 6), 5)
+        let key = bst.floor(key: 6)?.key
+        XCTAssertEqual(key, 5)
     }
     
     func testCeiling() {
@@ -73,7 +74,8 @@ final class CLRSRBTTests: XCTestCase {
         bst.put(key: 4, value: "Four")
         bst.put(key: 12, value: "Twelve")
         bst.put(key: 0, value: "Zero")
-        XCTAssertEqual(bst.ceiling(key: 9), 10)
+        let key = bst.ceiling(key: 9)?.key
+        XCTAssertEqual(key, 10)
     }
     
     func testSelect() {
@@ -86,7 +88,8 @@ final class CLRSRBTTests: XCTestCase {
         
         let ordered = [0,2,4,5,10,12]
         for (index, element) in ordered.enumerated() {
-            XCTAssertEqual(bst.select(rank: index), element)
+            let key = bst.select(rank: index)?.key
+            XCTAssertEqual(key, element)
         }
     }
     
