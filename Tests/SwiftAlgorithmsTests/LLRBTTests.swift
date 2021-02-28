@@ -212,6 +212,48 @@ final class LLRBTTests: XCTestCase {
         XCTAssertEqual(orderedKeys, bst.keys())
     }
     
+    func testSizeRange() {
+        bst.put(key: 5, value: "Five")
+        bst.put(key: 2, value: "Two")
+        bst.put(key: 10, value: "Ten")
+        bst.put(key: 4, value: "Four")
+        bst.put(key: 12, value: "Twelve")
+        bst.put(key: 1, value: "One")
+        
+        var size = bst.size(low: 2, high: 5)
+        XCTAssertEqual(size, 3)
+        
+        size = bst.size(low: 4, high: 11)
+        XCTAssertEqual(size, 3)
+        
+        size = bst.size(low: 0, high: 0)
+        XCTAssertEqual(size, 0)
+        
+        size = bst.size(low: 14, high: 19)
+        XCTAssertEqual(size, 0)
+    }
+    
+    func testRangeSearch() {
+        bst.put(key: 5, value: "Five")
+        bst.put(key: 2, value: "Two")
+        bst.put(key: 10, value: "Ten")
+        bst.put(key: 4, value: "Four")
+        bst.put(key: 12, value: "Twelve")
+        bst.put(key: 1, value: "One")
+        
+        var range = bst.rangeSearch(low: 2, high: 5).map { $0.key }
+        XCTAssertEqual(range, [2,4,5])
+        
+        range = bst.rangeSearch(low: 4, high: 11).map { $0.key }
+        XCTAssertEqual(range, [4,5,10])
+        
+        range = bst.rangeSearch(low: 0, high: 0).map { $0.key }
+        XCTAssertEqual(range, [])
+        
+        range = bst.rangeSearch(low: 14, high: 19).map { $0.key }
+        XCTAssertEqual(range, [])
+    }
+    
     func testLLRBT() {
         let size = 1000
         
@@ -252,6 +294,9 @@ final class LLRBTTests: XCTestCase {
         ("testDeleteCase0", testDeleteCase0),
         ("testDeleteCase1", testDeleteCase1),
         ("testDeleteCase2", testDeleteCase2),
+        ("testKeys", testKeys),
+        ("testSizeRange", testSizeRange),
+        ("testRangeSearch", testRangeSearch),
         ("testLLRBT", testLLRBT)
     ]
 }

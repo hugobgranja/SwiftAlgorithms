@@ -296,6 +296,37 @@ public class LLRBT<Key, Value>: BinarySearchTree where Key: Comparable {
         else { return size(node: someNode.left) }
     }
     
+    public func size(low: Key, high: Key) -> Int {
+        let size = rank(key: high) - rank(key: low)
+        return contains(key: high) ? size + 1 : size
+    }
+    
+    public func rangeSearch(low: Key, high: Key) -> [KeyValuePair] {
+        guard let root = root else { return [] }
+        return rangeSearch(low: low, high: high, node: root)
+        
+    }
+    
+    private func rangeSearch(low: Key, high: Key, node: RBTNode<Key,Value>) -> [KeyValuePair] {
+        var range = [KeyValuePair]()
+        
+        if node.key > low, let left = node.left {
+            let leftRange = rangeSearch(low: low, high: high, node: left)
+            range.append(contentsOf: leftRange)
+        }
+        
+        if node.key >= low && node.key <= high {
+            range.append((node.key, node.value))
+        }
+        
+        if node.key < high, let right = node.right {
+            let rightRange = rangeSearch(low: low, high: high, node: right)
+            range.append(contentsOf: rightRange)
+        }
+        
+        return range
+    }
+    
     public func keys() -> [Key] {
         var keys = [Key]()
         let it = LLRBTInorderIterator<Key, Value>(self)
