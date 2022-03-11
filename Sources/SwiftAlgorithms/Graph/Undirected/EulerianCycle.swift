@@ -41,11 +41,7 @@ public class EulerianCycle {
             cycle.append(v)
         }
         
-        if cycle.count == graph.edgeCount() + 1 {
-            return cycle
-        }
-        
-        return nil
+        return isEveryEdgeUsed(of: graph, in: cycle) ? cycle : nil
     }
     
     private func hasEveryVertexEvenDegree(graph: UndirectedGraph) -> Bool {
@@ -90,6 +86,10 @@ public class EulerianCycle {
         }
         
         return adj
+    }
+    
+    private func isEveryEdgeUsed(of graph: UndirectedGraph, in path: [Int]) -> Bool {
+        return path.count == graph.edgeCount() + 1
     }
     
 }

@@ -15,7 +15,7 @@ public class TopologicalOrder {
     
     public func getOrder(graph: Digraph) -> [Int]? {
         guard !DirectedCycle(graph: graph).hasCycle() else { return nil }
-        return DepthFirstOrder(graph: graph).getPostorder().reversed()
+        return DepthFirstOrder(graph: graph).getReversePostorder()
     }
     
 }

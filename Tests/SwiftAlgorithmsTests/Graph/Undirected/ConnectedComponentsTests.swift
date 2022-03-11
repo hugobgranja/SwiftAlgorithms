@@ -8,7 +8,7 @@ import XCTest
 
 class ConnectedComponentsTests: XCTestCase {
     
-    var graph: Graph!
+    var graph: UndirectedGraph!
     var cc: ConnectedComponents!
     
     override func setUp() {
@@ -28,6 +28,7 @@ class ConnectedComponentsTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         graph = nil
+        cc = nil
     }
 
     func testConnected() {
@@ -70,4 +71,3 @@ class ConnectedComponentsTests: XCTestCase {
     }
     
 }
-

@@ -43,4 +43,16 @@ public class Digraph: Graph {
         return indegree[vertex]
     }
     
+    public func reversed() -> Digraph {
+        let reversed = Digraph(vertices: vertexCount())
+        
+        for v in 0..<vertexCount() {
+            for w in adjacent(to: v) {
+                reversed.addEdge(v: w, w: v)
+            }
+        }
+        
+        return reversed
+    }
+    
 }

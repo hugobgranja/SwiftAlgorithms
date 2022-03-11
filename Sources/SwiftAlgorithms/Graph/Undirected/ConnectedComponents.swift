@@ -16,7 +16,7 @@ public class ConnectedComponents {
     private var size: [Int]
     private var componentsCount: Int
     
-    public init(graph: Graph) {
+    public init(graph: UndirectedGraph) {
         let vertexCount = graph.vertexCount()
         marked = [Bool](repeating: false, count: vertexCount)
         id = [Int](repeating: -1, count: vertexCount)

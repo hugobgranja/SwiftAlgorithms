@@ -28,6 +28,7 @@ class DepthFirstOrderTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         graph = nil
+        sut = nil
     }
 
     func testPreorder() {

@@ -39,11 +39,7 @@ public class EulerianPath {
             path.append(v)
         }
         
-        if path.count == graph.edgeCount() + 1 {
-            return path
-        }
-        
-        return nil
+        return isEveryEdgeUsed(of: graph, in: path) ? path : nil
     }
     
     private func countOddDegreeVertices(graph: UndirectedGraph) -> Int {
@@ -100,6 +96,10 @@ public class EulerianPath {
         }
         
         return adj
+    }
+    
+    private func isEveryEdgeUsed(of graph: UndirectedGraph, in path: [Int]) -> Bool {
+        return path.count == graph.edgeCount() + 1
     }
     
 }

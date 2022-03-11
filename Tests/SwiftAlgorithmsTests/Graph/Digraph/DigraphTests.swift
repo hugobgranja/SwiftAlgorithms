@@ -49,5 +49,18 @@ class DigraphTests: XCTestCase {
         graph.addEdge(v: 1, w: 4)
         XCTAssertEqual(graph.indegree(of: 1), 1)
     }
+    
+    func testReversed() {
+        graph.addEdge(v: 0, w: 1)
+        graph.addEdge(v: 1, w: 2)
+        graph.addEdge(v: 3, w: 4)
+        
+        let reversed = graph.reversed()
+        XCTAssertEqual(reversed.adjacent(to: 0), [])
+        XCTAssertEqual(reversed.adjacent(to: 1), [0])
+        XCTAssertEqual(reversed.adjacent(to: 2), [1])
+        XCTAssertEqual(reversed.adjacent(to: 3), [])
+        XCTAssertEqual(reversed.adjacent(to: 4), [3])
+    }
 
 }
