@@ -6,7 +6,7 @@
 //  A directed graph has an Eulerian cycle iff:
 //  Every vertex has equal indegree and outdegree.
 //  All of its vertices with nonzero degree belong to a single connected component.
-//  O(V + E) time in the worst case.
+//  O(V + E) time worst case.
 //  O(V) space.
 //
 

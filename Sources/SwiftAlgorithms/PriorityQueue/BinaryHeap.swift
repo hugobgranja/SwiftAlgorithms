@@ -24,12 +24,12 @@ public class BinaryHeap<T>: PriorityQueue {
         let end = size()
         guard end > 0 else { return nil }
         
-        let max = heap[0]
+        let root = heap[0]
         heap.swapAt(0, end - 1)
         heap.removeLast()
         sink(0)
         
-        return max
+        return root
     }
     
     public func peek() -> T? {

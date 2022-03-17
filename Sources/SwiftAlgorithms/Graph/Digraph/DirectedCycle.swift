@@ -2,8 +2,8 @@
 //  DirectedCycle.swift
 //  Created by hg on 07/03/2022.
 //
-//  O(V + E) time in the worst case.
-//  O(V) extra space.
+//  O(V + E) time worst case.
+//  O(V) space.
 //
 
 import Foundation
@@ -25,7 +25,8 @@ public class DirectedCycle {
     }
     
     private func findCycle(graph: Graph) {
-        for vertex in 0..<graph.vertexCount() where !hasCycle() {
+        for vertex in 0..<graph.vertexCount() {
+            guard !hasCycle() else { return }
             if !marked[vertex] { dfs(graph: graph, v: vertex) }
         }
     }

@@ -3,7 +3,7 @@
 //  Created by hg on 25/03/2021.
 //
 //  Finds paths from a source vertex to every other vertex.
-//  O(V + E) time in the worst case.
+//  O(V + E) time worst case.
 //  O(V) space.
 //
 

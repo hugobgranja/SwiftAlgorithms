@@ -30,7 +30,8 @@ public class Cycle {
         }
         
         if !hasCycle() {
-            for vertex in 0..<graph.vertexCount() where !hasCycle() {
+            for vertex in 0..<graph.vertexCount() {
+                guard !hasCycle() else { return }
                 if !marked[vertex] { dfs(graph: graph, -1, vertex) }
             }
         }
@@ -49,7 +50,9 @@ public class Cycle {
     }
     
     private func findParallelEdges(graph: Graph) {
-        for v in 0..<graph.vertexCount() where !hasCycle() {
+        for v in 0..<graph.vertexCount() {
+            guard !hasCycle() else { return }
+            
             for w in graph.adjacent(to: v) {
                 if marked[w] {
                     cycle.append(v)
@@ -70,7 +73,9 @@ public class Cycle {
     private func dfs(graph: Graph, _ u: Int, _ v: Int) {
         marked[v] = true
         
-        for w in graph.adjacent(to: v) where !hasCycle() {
+        for w in graph.adjacent(to: v) {
+            guard !hasCycle() else { return }
+            
             if !marked[w] {
                 edgeTo[w] = v
                 dfs(graph: graph, v, w)

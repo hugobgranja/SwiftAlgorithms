@@ -6,8 +6,8 @@
 //  An undirected graph has an Eulerian cycle iff:
 //  1. Every vertex has even degree.
 //  2. All of its vertices with nonzero degree belong to a single connected component.
-//  O(V + E) time in the worst case.
-//  O(V + E) space in the worst case.
+//  O(V + E) time worst case.
+//  O(V + E) space worst case.
 //
 
 import Foundation

@@ -4,7 +4,7 @@
 //
 //  Determines depth-first search ordering of the vertices in a digraph.
 //  O(V + E) time.
-//  O(V) extra space.
+//  O(V) space.
 
 import Foundation
 

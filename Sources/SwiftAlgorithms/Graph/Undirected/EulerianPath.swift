@@ -7,8 +7,8 @@
 //  1. Exactly zero or two vertices have odd degree.
 //  2. All of its vertices with nonzero degree belong to a single connected component.
 //  Note that only one vertex with odd degree is not possible in an undirected graph, the sum of all degrees is always even in an undirected graph.
-//  O(V + E) time in the worst case.
-//  O(V + E) space in the worst case.
+//  O(V + E) time worst case.
+//  O(V + E) space worst case.
 //
 
 import Foundation

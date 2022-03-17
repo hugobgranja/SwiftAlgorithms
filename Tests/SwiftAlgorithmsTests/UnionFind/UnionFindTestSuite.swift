@@ -9,9 +9,9 @@ import XCTest
 class UnionFindTestSuite: XCTestSuite {
     
     private let suts: [() -> UnionFind] = [
-        { try! QuickFindUF(length: 10) },
-        { try! QuickUnionUF(length: 10) },
-        { try! WeightedQuickUnionUF(length: 10) }
+        { QuickFindUF(length: 10) },
+        { QuickUnionUF(length: 10) },
+        { WeightedQuickUnionUF(length: 10) }
     ]
     
     init() {

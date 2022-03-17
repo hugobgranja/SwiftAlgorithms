@@ -21,11 +21,15 @@ class UndirectedGraphTests: XCTestCase {
     }
     
     func testAddEdge() {
-        graph.addEdge(v: 0, w: 1)
+        addTestData()
+        
         let adjZero = graph.adjacent(to: 0)
         let adjOne = graph.adjacent(to: 1)
+        let adjTwo = graph.adjacent(to: 2)
+        
         XCTAssertEqual(adjZero, [1])
-        XCTAssertEqual(adjOne, [0])
+        XCTAssertEqual(adjOne, [0,4])
+        XCTAssertEqual(adjTwo, [2,2])
     }
     
     func testVertexCount() {
@@ -33,16 +37,25 @@ class UndirectedGraphTests: XCTestCase {
     }
     
     func testEdgeCount() {
-        graph.addEdge(v: 0, w: 1)
-        graph.addEdge(v: 1, w: 4)
-        XCTAssertEqual(graph.edgeCount(), 2)
+        addTestData()
+        XCTAssertEqual(graph.edgeCount(), 3)
     }
     
     func testDegree() {
-        graph.addEdge(v: 0, w: 1)
-        graph.addEdge(v: 1, w: 4)
+        addTestData()
+        XCTAssertEqual(graph.degree(of: 0), 1)
         XCTAssertEqual(graph.degree(of: 1), 2)
+        XCTAssertEqual(graph.degree(of: 2), 2)
     }
 
 }
 
+extension UndirectedGraphTests {
+    
+    func addTestData() {
+        graph.addEdge(v: 0, w: 1)
+        graph.addEdge(v: 1, w: 4)
+        graph.addEdge(v: 2, w: 2)
+    }
+    
+}

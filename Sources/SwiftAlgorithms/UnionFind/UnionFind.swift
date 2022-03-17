@@ -7,10 +7,10 @@ import Foundation
 
 public protocol UnionFind {
     
-    init(length: Int) throws
-    func union(_ p: Int, _ q: Int) throws
-    func connected(_ p: Int, _ q: Int) throws -> Bool
-    func find(_ p: Int) throws -> Int
+    init(length: Int)
+    func union(_ p: Int, _ q: Int)
+    func connected(_ p: Int, _ q: Int) -> Bool
+    func find(_ p: Int) -> Int
     func components() -> Int
     
 }

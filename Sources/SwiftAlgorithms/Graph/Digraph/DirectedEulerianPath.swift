@@ -8,7 +8,7 @@
 //  At most one vertex has indegree - outdegree = 1.
 //  Every other vertex has equal indegree and outdegree.
 //  All of its vertices with nonzero degree belong to a single connected component.
-//  O(V + E) time in the worst case.
+//  O(V + E) time worst case.
 //  O(V) space.
 //
 

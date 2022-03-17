@@ -5,7 +5,7 @@
 //  A topological ordering of a directed graph is a linear ordering of its vertices such that for every directed edge uv from vertex u to vertex v, u comes before v in the ordering.
 //  A topological ordering is possible iff the graph has no directed cycles, that is, if it is a directed acyclic graph (DAG).
 //  O(V + E) time worst case.
-//  O(V) extra space.
+//  O(V) space.
 
 import Foundation
 

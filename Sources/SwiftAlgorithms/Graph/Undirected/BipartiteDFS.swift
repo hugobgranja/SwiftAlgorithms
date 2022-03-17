@@ -5,7 +5,7 @@
 //  A bipartite graph is a graph whose vertices can be divided into two disjoint and independent sets U and V where every edge connects a vertex in U to one in V.
 //  A graph is bipartite if and only if it does not contain an odd cycle.
 //
-//  O(V + E) time in the worst case.
+//  O(V + E) time worst case.
 //  O(V) space.
 //
 
@@ -29,6 +29,7 @@ public class BipartiteDFS {
         cycle = [Int]()
         
         for vertex in 0..<count {
+            guard !hasCycle() else { return }
             if !marked[vertex] { dfs(graph: graph, source: vertex) }
         }
     }
@@ -36,7 +37,9 @@ public class BipartiteDFS {
     private func dfs(graph: Graph, source: Int) {
         marked[source] = true
         
-        for vertex in graph.adjacent(to: source) where !hasCycle() {
+        for vertex in graph.adjacent(to: source) {
+            guard !hasCycle() else { return }
+            
             if !marked[vertex] {
                 edgeTo[vertex] = source
                 color[vertex] = !color[source]
