@@ -14,7 +14,7 @@ public class DepthFirstOrder {
     private var preorder: [Int]
     private var postorder: [Int]
     
-    public init(graph: Digraph) {
+    public init(graph: Graph) {
         let count = graph.vertexCount()
         self.marked = [Bool](repeating: false, count: count)
         self.preorder = []
@@ -22,7 +22,7 @@ public class DepthFirstOrder {
         findOrder(graph: graph)
     }
     
-    private func findOrder(graph: Digraph) {
+    private func findOrder(graph: Graph) {
         for v in 0..<graph.vertexCount() {
             if !marked[v] { dfs(graph: graph, source: v) }
         }

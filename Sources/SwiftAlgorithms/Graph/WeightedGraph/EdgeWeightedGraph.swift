@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class EdgeWeightedGraph {
+public class EdgeWeightedGraph: Graph {
     
     private var edges: Int
     private var adjacencyLists: [[WeightedEdge]]
@@ -22,8 +22,12 @@ public class EdgeWeightedGraph {
         edges += 1
     }
     
-    public func adjacent(to vertex: Int) -> [WeightedEdge] {
+    public func adjacentEdges(to vertex: Int) -> [WeightedEdge] {
         return adjacencyLists[vertex]
+    }
+    
+    public func adjacent(to vertex: Int) -> [Int] {
+        return adjacencyLists[vertex].map(\.w)
     }
     
     public func vertexCount() -> Int {
@@ -44,7 +48,7 @@ public class EdgeWeightedGraph {
         for v in 0..<vertexCount() {
             var selfLoops = 0
             
-            for edge in adjacent(to: v) {
+            for edge in adjacentEdges(to: v) {
                 let other = edge.other(vertex: v)!
                 
                 if other > v {

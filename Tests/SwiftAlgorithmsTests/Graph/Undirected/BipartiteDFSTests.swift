@@ -8,7 +8,7 @@ import XCTest
 
 class BipartiteDFSTests: XCTestCase {
     
-    var graph: Graph!
+    var graph: UndirectedGraph!
     
     override func setUp() {
         super.setUp()

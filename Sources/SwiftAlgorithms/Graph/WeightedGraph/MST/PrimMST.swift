@@ -42,7 +42,7 @@ public class PrimMST: MST {
     private func scan(graph: EdgeWeightedGraph, v: Int) {
         marked[v] = true
         
-        for edge in graph.adjacent(to: v) {
+        for edge in graph.adjacentEdges(to: v) {
             guard let w = edge.other(vertex: v), !marked[w] else { continue }
             
             if edge.weight < distTo[w] {

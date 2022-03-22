@@ -23,9 +23,9 @@ class EdgeWeightedGraphTests: XCTestCase {
     func testAddEdge() {
         addTestData()
         
-        let adjZero = graph.adjacent(to: 0)
-        let adjOne = graph.adjacent(to: 1)
-        let adjTwo = graph.adjacent(to: 2)
+        let adjZero = graph.adjacentEdges(to: 0)
+        let adjOne = graph.adjacentEdges(to: 1)
+        let adjTwo = graph.adjacentEdges(to: 2)
         
         let expectedZero = [WeightedEdge(v: 0, w: 1, weight: 0.5)]
         

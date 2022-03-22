@@ -52,7 +52,7 @@ public class LazyPrimMST: MST {
     }
     
     private func addAdjVerticesToPQ(graph: EdgeWeightedGraph, vertex: Int) {
-        for edge in graph.adjacent(to: vertex) {
+        for edge in graph.adjacentEdges(to: vertex) {
             if let other = edge.other(vertex: vertex), !marked[other] {
                 pq.enqueue(edge)
             }
