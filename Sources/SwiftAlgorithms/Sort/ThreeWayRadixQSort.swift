@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class ThreeWayRadixQSort {
+public class ThreeWayRadixQSort<T: StringProtocol> {
     
     let cutOffToInsertionSort: Int
     
@@ -13,12 +13,12 @@ public class ThreeWayRadixQSort {
         self.cutOffToInsertionSort = 15
     }
     
-    public func sort(_ array: inout [String]) {
+    public func sort(_ array: inout [T]) {
         array.shuffle()
         sort(&array, 0, array.count - 1, 0)
     }
     
-    private func sort(_ array: inout [String], _ low: Int, _ high: Int, _ d: Int) {
+    private func sort(_ array: inout [T], _ low: Int, _ high: Int, _ d: Int) {
         guard high > low else { return }
         
         if high <= low + cutOffToInsertionSort {
@@ -26,13 +26,13 @@ public class ThreeWayRadixQSort {
             return
         }
         
-        let (lt, gt) = partition(&array, low, high, d)
+        let (lt, gt) = partition(&array, low: low, high: high, d: d)
         sort(&array, low, lt - 1, d)
         if charAt(array[low], d) >= "\0" { sort(&array, lt, gt, d + 1) }
         sort(&array, gt + 1, high, d)
     }
     
-    private func insertionSort(_ array: inout [String], low: Int, high: Int, d: Int) {
+    private func insertionSort(_ array: inout [T], low: Int, high: Int, d: Int) {
         for i in low...high {
             var j = i
             while j > low && array[j].dropFirst(d) < array[j - 1].dropFirst(d) {
@@ -42,7 +42,7 @@ public class ThreeWayRadixQSort {
         }
     }
     
-    private func partition(_ array: inout [String], _ low: Int, _ high: Int, _ d: Int) -> (Int, Int) {
+    private func partition(_ array: inout [T], low: Int, high: Int, d: Int) -> (Int, Int) {
         var lt = low, i = low + 1, gt = high
         let v = charAt(array[low], d)
         
@@ -65,7 +65,7 @@ public class ThreeWayRadixQSort {
         return (lt, gt)
     }
     
-    private func charAt(_ str: String, _ index: Int) -> Character {
+    private func charAt(_ str: T, _ index: Int) -> Character {
         guard index < str.count else { return "\0" }
         let strIndex = str.index(str.startIndex, offsetBy: index)
         return str[strIndex]

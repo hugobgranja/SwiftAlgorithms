@@ -8,7 +8,7 @@ import XCTest
 
 class ThreeWayRadixQSortTests: XCTestCase {
     
-    var sort: ThreeWayRadixQSort!
+    var sort: ThreeWayRadixQSort<String>!
     
     override func setUp() {
         super.setUp()
