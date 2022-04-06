@@ -23,10 +23,8 @@ public class LSDSort {
             var count = [Int](repeating: 0, count: radix + 1)
             
             for i in 0..<array.count {
-                let str = array[i]
-                let strIndex = str.index(str.startIndex, offsetBy: d)
-                let charValue = Int(array[i][strIndex].asciiValue!)
-                count[charValue + 1] += 1
+                let value = asciiValue(of: array[i], at: d)!
+                count[value + 1] += 1
             }
             
             for i in 0..<radix {
@@ -34,17 +32,20 @@ public class LSDSort {
             }
             
             for i in 0..<array.count {
-                let str = array[i]
-                let strIndex = str.index(str.startIndex, offsetBy: d)
-                let charValue = Int(array[i][strIndex].asciiValue!)
-                aux[count[charValue]] = array[i]
-                count[charValue] += 1
+                let value = asciiValue(of: array[i], at: d)!
+                aux[count[value]] = array[i]
+                count[value] += 1
             }
             
             for i in 0..<array.count {
                 array[i] = aux[i]
             }
         }
+    }
+    
+    private func asciiValue(of string: String, at index: Int) -> Int? {
+        let strIndex = string.index(string.startIndex, offsetBy: index)
+        return string[strIndex].asciiValue.map { Int($0) }
     }
     
     public func sort(_ array: inout [Int]) {
