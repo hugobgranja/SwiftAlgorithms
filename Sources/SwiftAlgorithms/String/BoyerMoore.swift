@@ -26,14 +26,9 @@ public class BoyerMoore {
     
     private func buildBadCharSkip() {
         for index in 0..<pattern.count {
-            let value = asciiValue(of: pattern, at: index)
+            let value = pattern.asciiValue(at: index)!
             bcSkip[value] = index
         }
-    }
-    
-    private func asciiValue(of string: String, at index: Int) -> Int {
-        let strIndex = string.index(string.startIndex, offsetBy: index)
-        return Int(string[strIndex].asciiValue!)
     }
     
     public func search(_ text: String) -> Int? {
@@ -45,8 +40,8 @@ public class BoyerMoore {
             var mismatchFound = false
             
             while j >= 0 && !mismatchFound {
-                let patternCharValue = asciiValue(of: pattern, at: j)
-                let textCharValue = asciiValue(of: text, at: i + j)
+                let patternCharValue = pattern.asciiValue(at: j)!
+                let textCharValue = text.asciiValue(at: i + j)!
                 
                 if patternCharValue != textCharValue {
                     skip = max(1, j - bcSkip[textCharValue])

@@ -30,7 +30,8 @@ public class KMP {
     }
     
     private func buildDfa(for pattern: String) {
-        dfa[asciiValue(of: pattern, at: 0)][0] = 1
+        let firstCharValue = pattern.asciiValue(at: 0)!
+        dfa[firstCharValue][0] = 1
         var mismatchState = 0
         
         for state in 1..<pattern.count {
@@ -38,22 +39,17 @@ public class KMP {
                 dfa[char][state] = dfa[char][mismatchState]
             }
             
-            let charValue = asciiValue(of: pattern, at: state)
+            let charValue = pattern.asciiValue(at: state)!
             dfa[charValue][state] = state + 1
             mismatchState = dfa[charValue][mismatchState]
         }
-    }
-    
-    private func asciiValue<T: StringProtocol>(of string: T, at index: Int) -> Int {
-        let strIndex = string.index(string.startIndex, offsetBy: index)
-        return Int(string[strIndex].asciiValue!)
     }
     
     public func search<T: StringProtocol>(_ text: T) -> Int? {
         var i = 0, j = 0
         
         while i < text.count && j < patternLength {
-            let charValue = asciiValue(of: text, at: i)
+            let charValue = text.asciiValue(at: i)!
             j = dfa[charValue][j]
             i += 1
         }

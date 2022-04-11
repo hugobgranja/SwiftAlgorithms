@@ -35,16 +35,11 @@ public class RabinKarp {
         var hash: UInt64 = 0
         
         for i in 0..<pattern.count {
-            let charValue = asciiValue(of: key, at: i)
+            let charValue = UInt64(key.asciiValue(at: i)!)
             hash = (radix * hash + charValue) % prime
         }
         
         return hash
-    }
-
-    private func asciiValue(of string: String, at index: Int) -> UInt64 {
-        let strIndex = string.index(string.startIndex, offsetBy: index)
-        return UInt64(string[strIndex].asciiValue!)
     }
     
     public func search(_ text: String) -> Int? {
@@ -57,8 +52,8 @@ public class RabinKarp {
         }
         
         for i in pattern.count..<text.count {
-            let leadingValue = asciiValue(of: text, at: i - pattern.count)
-            let currentValue = asciiValue(of: text, at: i)
+            let leadingValue = UInt64(text.asciiValue(at: i - pattern.count)!)
+            let currentValue = UInt64(text.asciiValue(at: i)!)
             textHash = (textHash + prime - rm * leadingValue % prime) % prime
             textHash = (textHash * radix + currentValue) % prime
             

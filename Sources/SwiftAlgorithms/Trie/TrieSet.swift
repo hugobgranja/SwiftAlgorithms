@@ -26,7 +26,7 @@ public class TrieSet {
                 node = someNode
             }
             else {
-                let value = asciiValue(of: newMember, at: index)!
+                let value = newMember.asciiValue(at: index)!
                 let newNode = Node(radix: radix, isMember: false)
                 node.next[value] = newNode
                 node = newNode
@@ -57,8 +57,8 @@ public class TrieSet {
     }
     
     private func get<T: StringProtocol>(from node: Node, to member: T, at index: Int) -> Node? {
-        let value = asciiValue(of: member, at: index)
-        return value.flatMap { node.next[$0] }
+        guard index < member.count else { return nil }
+        return member.asciiValue(at: index).flatMap { node.next[$0] }
     }
     
     public func isEmpty() -> Bool {
@@ -108,12 +108,6 @@ public class TrieSet {
         }
         
         return longest.map { String($0) }
-    }
-    
-    private func asciiValue<T: StringProtocol>(of string: T, at index: Int) -> Int? {
-        guard index < string.count else { return nil }
-        let strIndex = string.index(string.startIndex, offsetBy: index)
-        return string[strIndex].asciiValue.map { Int($0) }
     }
     
     private func asciiChar(of value: Int) -> String? {
