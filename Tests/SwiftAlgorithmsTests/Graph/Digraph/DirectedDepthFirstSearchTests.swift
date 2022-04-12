@@ -1,12 +1,12 @@
 //
-//  DirectedDepthFirstPathsTests.swift
-//  Created by hg on 03/04/2021.
+//  DepthFirstSearchTests.swift
+//  Created by hg on 12/04/2022.
 //
 
 import XCTest
 @testable import SwiftAlgorithms
 
-class DirectedDepthFirstPathsTests: XCTestCase {
+class DirectedDepthFirstSearchTests: XCTestCase {
     
     var graph: Digraph!
     
@@ -28,7 +28,7 @@ class DirectedDepthFirstPathsTests: XCTestCase {
     }
 
     func testHasPath() {
-        let paths = DepthFirstPaths(graph: graph, source: 0)
+        let paths = DepthFirstSearch(graph: graph, source: 0)
         XCTAssertTrue(paths.hasPath(to: 0))
         XCTAssertTrue(paths.hasPath(to: 5))
         XCTAssertTrue(paths.hasPath(to: 2))
@@ -39,14 +39,16 @@ class DirectedDepthFirstPathsTests: XCTestCase {
         XCTAssertFalse(paths.hasPath(to: 6))
     }
     
-    func testPath() {
-        let paths = DepthFirstPaths(graph: graph, source: 0)
-        XCTAssertEqual(paths.path(to: 3), [0,2,3])
-    }
-    
-    func testNoPath() {
-        let paths = DepthFirstPaths(graph: graph, source: 0)
-        XCTAssertNil(paths.path(to: 4))
+    func testHasPathMultipleSources() {
+        let paths = DepthFirstSearch(graph: graph, sources: [0, 4, 1])
+        XCTAssertTrue(paths.hasPath(to: 0))
+        XCTAssertTrue(paths.hasPath(to: 5))
+        XCTAssertTrue(paths.hasPath(to: 2))
+        XCTAssertTrue(paths.hasPath(to: 3))
+        XCTAssertTrue(paths.hasPath(to: 4))
+        XCTAssertTrue(paths.hasPath(to: 7))
+        XCTAssertTrue(paths.hasPath(to: 1))
+        XCTAssertFalse(paths.hasPath(to: 6))
     }
     
 }

@@ -66,9 +66,7 @@ public class ThreeWayRadixQSort<T: StringProtocol> {
     }
     
     private func charAt(_ str: T, _ index: Int) -> Character {
-        guard index < str.count else { return "\0" }
-        let strIndex = str.index(str.startIndex, offsetBy: index)
-        return str[strIndex]
+        return index < str.count ? "\0" : str[index]
     }
     
 }

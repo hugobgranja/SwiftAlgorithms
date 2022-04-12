@@ -7,13 +7,14 @@ import Foundation
 
 extension BidirectionalCollection where Element == Character {
     
-    func charAt(_ offset: Int) -> Character {
-        let strIndex = index(startIndex, offsetBy: offset)
-        return self[strIndex]
+    subscript(offset: Int) -> Character {
+        get {
+            return self[index(startIndex, offsetBy: offset)]
+        }
     }
     
     func asciiValue(at offset: Int) -> Int? {
-        return charAt(offset).asciiValue.map { Int($0) }
+        return self[offset].asciiValue.map { Int($0) }
     }
     
 }
