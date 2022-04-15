@@ -30,18 +30,25 @@ public class NFA {
                 stack.push(index)
             }
             else if currentChar == ")" {
-                if let or = stack.pop() {
+                var orIndices = [Int]()
+                
+                while let or = stack.pop() {
                     if regex[or] == "|" {
-                        lp = stack.pop()!
-                        graph.addEdge(v: lp, w: or + 1)
-                        graph.addEdge(v: or, w: index)
+                        orIndices.append(or)
                     }
                     else if regex[or] == "(" {
                         lp = or
+                        break
                     }
                 }
-                else {
+                
+                guard regex[lp] == "(" else {
                     throw NFAError.parenthesisMismatch
+                }
+                
+                for or in orIndices {
+                    graph.addEdge(v: lp, w: or + 1)
+                    graph.addEdge(v: or, w: index)
                 }
             }
             

@@ -68,6 +68,14 @@ class NFATests: XCTestCase {
         XCTAssertFalse(try! nfa.recognizes(text: "C"))
     }
     
+    func testMultiway() {
+        let nfa = try! NFA(regex: "(A|B|C)")
+        XCTAssertTrue(try! nfa.recognizes(text: "A"))
+        XCTAssertTrue(try! nfa.recognizes(text: "B"))
+        XCTAssertTrue(try! nfa.recognizes(text: "C"))
+        XCTAssertFalse(try! nfa.recognizes(text: "D"))
+    }
+    
     func testThrowsOnMismatchedParenthesis() {
         XCTAssertThrowsError(try NFA(regex: "((A|B)"))
         XCTAssertThrowsError(try NFA(regex: "(A|B))"))
