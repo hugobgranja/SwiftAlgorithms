@@ -17,4 +17,10 @@ extension BidirectionalCollection where Element == Character {
         return self[offset].asciiValue.map { Int($0) }
     }
     
+    func subsequence(from start: Int, length: Int) -> SubSequence {
+        let offsettedIndex = index(startIndex, offsetBy: start)
+        let endIndex = index(offsettedIndex, offsetBy: length)
+        return self[offsettedIndex..<endIndex]
+    }
+    
 }
