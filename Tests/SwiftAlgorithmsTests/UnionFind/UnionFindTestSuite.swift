@@ -11,7 +11,8 @@ class UnionFindTestSuite: XCTestSuite {
     private let suts: [() -> UnionFind] = [
         { QuickFindUF(length: 10) },
         { QuickUnionUF(length: 10) },
-        { WeightedQuickUnionUF(length: 10) }
+        { WeightedQuickUnionUF(length: 10) },
+        { WQURankUF(length: 10) }
     ]
     
     init() {

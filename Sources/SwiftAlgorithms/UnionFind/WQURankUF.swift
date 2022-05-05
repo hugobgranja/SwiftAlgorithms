@@ -1,23 +1,23 @@
 //
-//  WeightedWeightedQuickUnionUF.swift
-//  Created by hg on 26/09/2020.
+//  WQURankUF.swift
+//  Created by hg on 05/05/2022.
 //
 
 import Foundation
 
-public class WeightedQuickUnionUF: UnionFind {
+public class WQURankUF: UnionFind {
     
     private var parent: [Int]
-    private var size: [Int]
+    private var rank: [UInt8]
     private var count: Int
     
     public required init(length: Int) {
         parent = [Int]()
-        size = [Int]()
+        rank = [UInt8]()
         
         for i in 0..<length {
             parent.append(i)
-            size.append(1)
+            rank.append(0)
         }
         
         count = length
@@ -29,13 +29,15 @@ public class WeightedQuickUnionUF: UnionFind {
         
         if i == j { return }
         
-        if size[i] < size[j] {
+        if rank[i] < rank[j] {
             parent[i] = j
-            size[j] += size[i]
+        }
+        else if rank[i] > rank[j] {
+            parent[j] = parent[i]
         }
         else {
             parent[j] = i
-            size[i] += size[j]
+            rank[i] += 1
         }
         
         count -= 1

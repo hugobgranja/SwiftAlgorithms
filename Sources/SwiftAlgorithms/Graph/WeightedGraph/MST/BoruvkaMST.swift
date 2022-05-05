@@ -20,7 +20,7 @@ public class BoruvkaMST: MST {
     }
     
     private func findMST(graph: EdgeWeightedGraph) {
-        let uf = WeightedQuickUnionUF(length: graph.vertexCount())
+        let uf = WQURankUF(length: graph.vertexCount())
         var t = 1
         
         while t < graph.vertexCount() && mst.count < graph.vertexCount() - 1 {

@@ -21,7 +21,7 @@ public class KruskalMST: MST {
     
     private func findMST(graph: EdgeWeightedGraph) {
         var sortedEdges = graph.getEdges().sorted(by: >)
-        let uf = WeightedQuickUnionUF(length: graph.vertexCount())
+        let uf = WQURankUF(length: graph.vertexCount())
         
         while let edge = sortedEdges.popLast(), mst.count < graph.vertexCount() - 1 {
             if !uf.connected(edge.v, edge.w) {
