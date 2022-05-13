@@ -8,7 +8,7 @@ import Foundation
 public class TrieSet {
     
     private let radix: Int
-    private var root: Node
+    private let root: Node
     public var count: Int
     
     public init() {
