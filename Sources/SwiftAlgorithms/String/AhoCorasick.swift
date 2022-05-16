@@ -7,7 +7,7 @@ import Foundation
 
 public class AhoCorasick {
     
-    private var trie: Trie!
+    private var trie: Trie
     
     public init(patterns: [String]) {
         self.trie = Trie()
