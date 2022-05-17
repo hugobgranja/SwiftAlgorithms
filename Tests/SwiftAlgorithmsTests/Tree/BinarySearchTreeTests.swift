@@ -114,6 +114,13 @@ class BinarySearchTreeTests: XCTestCase {
         XCTAssertEqual(sut.get(key: 0), "Zero")
     }
     
+    // Delete absent key
+    func testDeleteCase3() {
+        addTestData()
+        sut.delete(key: 1)
+        XCTAssertEqual(sut.size(), 7)
+    }
+    
     func testSize() {
         XCTAssertEqual(sut.size(), 0)
         

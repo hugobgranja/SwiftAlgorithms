@@ -159,7 +159,7 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
     private func delete(key: Key, node: TreeNode<Key,Value>?) -> TreeNode<Key,Value>? {
         guard var someNode = node else { return nil }
         if key < someNode.key { someNode.left = delete(key: key, node: someNode.left) }
-        if key > someNode.key { someNode.right = delete(key: key, node: someNode.right) }
+        else if key > someNode.key { someNode.right = delete(key: key, node: someNode.right) }
         else {
             if someNode.right == nil { return someNode.left }
             if someNode.left == nil { return someNode.right }
@@ -285,6 +285,23 @@ public struct BSTLevelIterator<Key,Value>: IteratorProtocol where Key: Comparabl
         if let right = node.right { queue.enqueue(right) }
         
         return (node.key, node.value)
+    }
+    
+}
+
+extension BinarySearchTreeImpl where Key: CustomStringConvertible {
+    
+    public func printTree() {
+        guard let root = root else { return }
+        
+        let queue = LinkedListQueue<(Key?, TreeNode<Key,Value>)>()
+        queue.enqueue((nil, root))
+        
+        while let node = queue.dequeue() {
+            if let left = node.1.left { queue.enqueue((node.1.key, left)) }
+            if let right = node.1.right { queue.enqueue((node.1.key, right)) }
+            print("Key: \(node.1.key) | Parent: \(String(describing: node.0))")
+        }
     }
     
 }
