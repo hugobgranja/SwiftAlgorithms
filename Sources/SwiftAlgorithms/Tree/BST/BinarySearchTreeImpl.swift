@@ -7,7 +7,7 @@ import Foundation
 
 public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Comparable {
     
-    public var root: TreeNode<Key,Value>?
+    public var root: BSTNode<Key,Value>?
     
     public init() {}
     
@@ -15,8 +15,8 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
         root = put(key: key, value: value, node: root)
     }
     
-    private func put(key: Key, value: Value, node: TreeNode<Key,Value>?) -> TreeNode<Key,Value> {
-        guard let someNode = node else { return TreeNode<Key,Value>(key: key, value: value) }
+    private func put(key: Key, value: Value, node: BSTNode<Key,Value>?) -> BSTNode<Key,Value> {
+        guard let someNode = node else { return BSTNode<Key,Value>(key: key, value: value) }
         
         if key < someNode.key { someNode.left = put(key: key, value: value, node: someNode.left) }
         else if key > someNode.key { someNode.right = put(key: key, value: value, node: someNode.right) }
@@ -47,7 +47,7 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
         return (maxNode.key, maxNode.value)
     }
     
-    private func max(node: TreeNode<Key,Value>) -> TreeNode<Key,Value> {
+    private func max(node: BSTNode<Key,Value>) -> BSTNode<Key,Value> {
         var node = node
         while let someNode = node.right { node = someNode }
         return node
@@ -59,7 +59,7 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
         return (minNode.key, minNode.value)
     }
     
-    private func min(node: TreeNode<Key,Value>) -> TreeNode<Key,Value> {
+    private func min(node: BSTNode<Key,Value>) -> BSTNode<Key,Value> {
         var node = node
         while let someNode = node.left { node = someNode }
         return node
@@ -70,7 +70,7 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
         return (node.key, node.value)
     }
     
-    private func floor(key: Key, node: TreeNode<Key,Value>?) -> TreeNode<Key,Value>? {
+    private func floor(key: Key, node: BSTNode<Key,Value>?) -> BSTNode<Key,Value>? {
         guard let someNode = node else { return nil }
         
         if key == someNode.key { return someNode }
@@ -86,7 +86,7 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
         return (node.key, node.value)
     }
     
-    private func ceiling(key: Key, node: TreeNode<Key,Value>?) -> TreeNode<Key,Value>? {
+    private func ceiling(key: Key, node: BSTNode<Key,Value>?) -> BSTNode<Key,Value>? {
         guard let someNode = node else { return nil }
         
         if key == someNode.key { return someNode }
@@ -108,7 +108,7 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
         return (node.key, node.value)
     }
     
-    private func select(rank: Int, node: TreeNode<Key,Value>?) -> TreeNode<Key,Value>? {
+    private func select(rank: Int, node: BSTNode<Key,Value>?) -> BSTNode<Key,Value>? {
         guard let someNode = node else { return nil }
         
         let leftSize = size(node: someNode.left)
@@ -121,7 +121,7 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
         return rank(key: key, node: root)
     }
     
-    private func rank(key: Key, node: TreeNode<Key,Value>?) -> Int {
+    private func rank(key: Key, node: BSTNode<Key,Value>?) -> Int {
         guard let someNode = node else { return 0 }
         if key < someNode.key { return rank(key: key, node: someNode.left) }
         else if key > someNode.key { return 1 + size(node: someNode.left) + rank(key: key, node: someNode.right) }
@@ -132,7 +132,7 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
         root = deleteMin(node: root)
     }
     
-    private func deleteMin(node: TreeNode<Key,Value>?) -> TreeNode<Key,Value>? {
+    private func deleteMin(node: BSTNode<Key,Value>?) -> BSTNode<Key,Value>? {
         guard let someNode = node else { return nil }
         if someNode.left == nil { return someNode.right }
         someNode.left = deleteMin(node: someNode.left)
@@ -144,7 +144,7 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
         root = deleteMax(node: root)
     }
     
-    private func deleteMax(node: TreeNode<Key,Value>?) -> TreeNode<Key,Value>? {
+    private func deleteMax(node: BSTNode<Key,Value>?) -> BSTNode<Key,Value>? {
         guard let someNode = node else { return nil }
         if someNode.right == nil { return someNode.left }
         someNode.right = deleteMax(node: someNode.right)
@@ -156,7 +156,7 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
         root = delete(key: key, node: root)
     }
     
-    private func delete(key: Key, node: TreeNode<Key,Value>?) -> TreeNode<Key,Value>? {
+    private func delete(key: Key, node: BSTNode<Key,Value>?) -> BSTNode<Key,Value>? {
         guard var someNode = node else { return nil }
         if key < someNode.key { someNode.left = delete(key: key, node: someNode.left) }
         else if key > someNode.key { someNode.right = delete(key: key, node: someNode.right) }
@@ -178,7 +178,7 @@ public class BinarySearchTreeImpl<Key, Value>: BinarySearchTree where Key: Compa
         return size(node: root)
     }
     
-    private func size(node: TreeNode<Key, Value>?) -> Int {
+    private func size(node: BSTNode<Key, Value>?) -> Int {
         return node?.count ?? 0
     }
     
@@ -206,7 +206,7 @@ public class BSTInorderIterator<Key,Value>: IteratorProtocol where Key: Comparab
         initQueue(node: bst.root)
     }
     
-    private func initQueue(node: TreeNode<Key,Value>?) {
+    private func initQueue(node: BSTNode<Key,Value>?) {
         guard let someNode = node else { return }
         initQueue(node: someNode.left)
         queue.enqueue((someNode.key, someNode.value))
@@ -230,7 +230,7 @@ public class BSTPreorderIterator<Key,Value>: IteratorProtocol where Key: Compara
         initQueue(node: bst.root)
     }
     
-    private func initQueue(node: TreeNode<Key,Value>?) {
+    private func initQueue(node: BSTNode<Key,Value>?) {
         guard let someNode = node else { return }
         queue.enqueue((someNode.key, someNode.value))
         initQueue(node: someNode.left)
@@ -254,7 +254,7 @@ public class BSTPostorderIterator<Key,Value>: IteratorProtocol where Key: Compar
         initQueue(node: bst.root)
     }
     
-    private func initQueue(node: TreeNode<Key,Value>?) {
+    private func initQueue(node: BSTNode<Key,Value>?) {
         guard let someNode = node else { return }
         initQueue(node: someNode.left)
         initQueue(node: someNode.right)
@@ -271,7 +271,7 @@ public struct BSTLevelIterator<Key,Value>: IteratorProtocol where Key: Comparabl
     
     public typealias KeyValuePair = (key: Key, value: Value)
     
-    private let queue: LinkedListQueue<TreeNode<Key,Value>>
+    private let queue: LinkedListQueue<BSTNode<Key,Value>>
     
     public init(_ bst: BinarySearchTreeImpl<Key,Value>) {
         self.queue = LinkedListQueue()
@@ -294,7 +294,7 @@ extension BinarySearchTreeImpl where Key: CustomStringConvertible {
     public func printTree() {
         guard let root = root else { return }
         
-        let queue = LinkedListQueue<(Key?, TreeNode<Key,Value>)>()
+        let queue = LinkedListQueue<(Key?, BSTNode<Key,Value>)>()
         queue.enqueue((nil, root))
         
         while let node = queue.dequeue() {
