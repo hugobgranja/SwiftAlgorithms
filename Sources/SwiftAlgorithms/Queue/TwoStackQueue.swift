@@ -7,41 +7,41 @@ import Foundation
 
 public class TwoStackQueue<T>: Queue {
     
-    private var stackOne: ArrayStack<T>
-    private var stackTwo: ArrayStack<T>
+    private var pushStack: ArrayStack<T>
+    private var popStack: ArrayStack<T>
     
     public init() {
-        stackOne = ArrayStack<T>()
-        stackTwo = ArrayStack<T>()
+        pushStack = ArrayStack<T>()
+        popStack = ArrayStack<T>()
     }
     
     public func enqueue(_ element: T) {
-        stackOne.push(element)
+        pushStack.push(element)
     }
     
     public func dequeue() -> T? {
         if isEmpty() { return nil }
-        if stackTwo.isEmpty() { moveStackOneToStackTwo() }
-        return stackTwo.pop()
+        if popStack.isEmpty() { movePushToPop() }
+        return popStack.pop()
     }
     
     public func peek() -> T? {
         if isEmpty() { return nil }
-        if stackTwo.isEmpty() { moveStackOneToStackTwo() }
-        return stackTwo.peek()
+        if popStack.isEmpty() { movePushToPop() }
+        return popStack.peek()
     }
     
     public func isEmpty() -> Bool {
-        return stackOne.isEmpty() && stackTwo.isEmpty()
+        return pushStack.isEmpty() && popStack.isEmpty()
     }
     
     public func size() -> Int {
-        return stackOne.size() + stackTwo.size()
+        return pushStack.size() + popStack.size()
     }
     
-    private func moveStackOneToStackTwo() {
-        while let element = stackOne.pop() {
-            stackTwo.push(element)
+    private func movePushToPop() {
+        while let element = pushStack.pop() {
+            popStack.push(element)
         }
     }
     

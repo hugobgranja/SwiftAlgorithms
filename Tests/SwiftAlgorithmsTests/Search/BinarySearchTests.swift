@@ -23,19 +23,25 @@ class BinarySearchTests: XCTestCase {
     func testSearchWhenIsEmpty() {
         let array = [Int]()
         let index = sut.indexOf(array, 1)
+        let indexIt = sut.indexOfIt(array, 1)
         XCTAssertNil(index)
+        XCTAssertNil(indexIt)
     }
     
     func testSearchWhenNotContains() {
         let array = [1,2,3,4,5,6,7,8,9]
         let index = sut.indexOf(array, 10)
+        let indexIt = sut.indexOfIt(array, 10)
         XCTAssertNil(index)
+        XCTAssertNil(indexIt)
     }
     
     func testSearchWhenContains() {
         let array = [1,2,3,4,5,6,7,8,9]
         let index = sut.indexOf(array, 5)
+        let indexIt = sut.indexOfIt(array, 5)
         XCTAssertEqual(index, 4)
+        XCTAssertEqual(indexIt, 4)
     }
     
 }
