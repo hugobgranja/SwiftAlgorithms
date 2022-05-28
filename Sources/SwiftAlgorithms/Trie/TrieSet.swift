@@ -19,20 +19,20 @@ public class TrieSet {
     
     public func insert(_ newMember: String) {
         var node = root
-        var index = 0
+        var index = newMember.startIndex
         
-        while index < newMember.count {
+        while index < newMember.endIndex {
             if let someNode = get(from: node, to: newMember, at: index) {
                 node = someNode
             }
             else {
-                let value = newMember.asciiValue(at: index)!
+                let value = Int(newMember[index].asciiValue!)
                 let newNode = Node(radix: radix, isMember: false)
                 node.next[value] = newNode
                 node = newNode
             }
             
-            index += 1
+            index = newMember.index(after: index)
         }
         
         if !node.isMember { count += 1 }
@@ -46,19 +46,19 @@ public class TrieSet {
     
     private func get<T: StringProtocol>(from node: Node, to member: T) -> Node? {
         var node = root
-        var index = 0
+        var index = member.startIndex
         
-        while let someNode = get(from: node, to: member, at: index), index < member.count {
+        while let someNode = get(from: node, to: member, at: index), index < member.endIndex {
             node = someNode
-            index += 1
+            index = member.index(after: index)
         }
         
-        return index == member.count ? node : nil
+        return index == member.endIndex ? node : nil
     }
     
-    private func get<T: StringProtocol>(from node: Node, to member: T, at index: Int) -> Node? {
-        guard index < member.count else { return nil }
-        return member.asciiValue(at: index).flatMap { node.next[$0] }
+    private func get<T: StringProtocol>(from node: Node, to member: T, at index: T.Index) -> Node? {
+        guard index < member.endIndex else { return nil }
+        return member[index].asciiValue.flatMap { node.next[Int($0)] }
     }
     
     public func isEmpty() -> Bool {
@@ -96,15 +96,15 @@ public class TrieSet {
     public func longestPrefix(of member: String) -> String? {
         var longest: Substring?
         var node = root
-        var index = 0
+        var index = member.startIndex
         
-        while let someNode = get(from: node, to: member, at: index), index < member.count {
+        while let someNode = get(from: node, to: member, at: index), index < member.endIndex {
             if someNode.isMember {
-                longest = member.prefix(index + 1)
+                longest = member.prefix(through: index)
             }
             
             node = someNode
-            index += 1
+            index = member.index(after: index)
         }
         
         return longest.map { String($0) }

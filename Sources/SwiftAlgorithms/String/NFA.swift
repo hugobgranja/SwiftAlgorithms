@@ -80,15 +80,15 @@ public class NFA {
             if dfs.hasPath(to: vertex) { pc.append(vertex) }
         }
         
-        for index in 0..<text.count {
-            if metacharacters.contains(text[index]) {
-                throw NFAError.textContainsMetacharacters(char: text[index])
+        for char in text {
+            if metacharacters.contains(char) {
+                throw NFAError.textContainsMetacharacters(char: char)
             }
             
             var match = [Int]()
             for vertex in pc {
                 if vertex == regex.count { continue }
-                if regex[vertex] == text[index] || regex[vertex] == "." {
+                if regex[vertex] == char || regex[vertex] == "." {
                     match.append(vertex + 1)
                 }
             }

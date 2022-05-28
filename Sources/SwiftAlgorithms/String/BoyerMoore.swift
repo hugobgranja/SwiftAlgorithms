@@ -25,8 +25,8 @@ public class BoyerMoore {
     }
     
     private func buildBadCharSkip() {
-        for index in 0..<pattern.count {
-            let value = pattern.asciiValue(at: index)!
+        for (index, char) in pattern.enumerated() {
+            let value = Int(char.asciiValue!)
             bcSkip[value] = index
         }
     }

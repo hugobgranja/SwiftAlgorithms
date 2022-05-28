@@ -20,12 +20,12 @@ public class Huffman {
         let builder = encodeTrie(node: root)
         builder.append(Int64(string.count))
         
-        for i in 0..<string.count {
-            let asciiValue = string.asciiValue(at: i)!
+        for char in string {
+            let asciiValue = Int(char.asciiValue!)
             let code = codeTable[asciiValue]
             
-            for j in 0..<code.count {
-                if code[j] == "0" { builder.append(bit: false) }
+            for char in code {
+                if char == "0" { builder.append(bit: false) }
                 else { builder.append(bit: true) }
             }
         }

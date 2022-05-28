@@ -30,7 +30,7 @@ public class KMP {
     }
     
     private func buildDfa(for pattern: String) {
-        let firstCharValue = pattern.asciiValue(at: 0)!
+        let firstCharValue = Int(pattern.first!.asciiValue!)
         dfa[firstCharValue][0] = 1
         var mismatchState = 0
         

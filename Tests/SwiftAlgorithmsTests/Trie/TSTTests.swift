@@ -51,6 +51,18 @@ class TSTTests: XCTestCase {
         XCTAssertEqual(longestPrefix, "shore")
     }
     
+    func testLongestPrefixWhenMax() {
+        addTestData()
+        let longestPrefix = sut.longestPrefix(of: "seashells")
+        XCTAssertEqual(longestPrefix, "seashells")
+    }
+    
+    func testLongestPrefixWhenNotExists() {
+        addTestData()
+        let longestPrefix = sut.longestPrefix(of: "xyz")
+        XCTAssertEqual(longestPrefix, "")
+    }
+    
     func testKeys() {
         addTestData()
         let expected = [

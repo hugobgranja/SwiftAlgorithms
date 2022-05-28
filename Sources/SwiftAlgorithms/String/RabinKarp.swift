@@ -36,6 +36,7 @@ public class RabinKarp {
         
         for i in 0..<pattern.count {
             let charValue = UInt64(key.asciiValue(at: i)!)
+            print(charValue)
             hash = (radix * hash + charValue) % prime
         }
         

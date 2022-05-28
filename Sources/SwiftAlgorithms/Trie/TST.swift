@@ -17,10 +17,10 @@ public class TST<Value> {
     public func insert<T: StringProtocol>(key: T, value: Value?) {
         if !contains(key: key) { count += 1 }
         else if value == nil { count -= 1 }
-        root = insert(from: root, key: key, value: value, at: 0)
+        root = insert(from: root, key: key, value: value, at: key.startIndex)
     }
     
-    private func insert<T: StringProtocol>(from node: Node?, key: T, value: Value?, at index: Int) -> Node {
+    private func insert<T: StringProtocol>(from node: Node?, key: T, value: Value?, at index: T.Index) -> Node {
         let char = key[index]
         let node = node ?? Node(char: char)
         
@@ -30,8 +30,9 @@ public class TST<Value> {
         else if char > node.char {
             node.right = insert(from: node.right, key: key, value: value, at: index)
         }
-        else if index < key.count - 1 {
-            node.mid = insert(from: node.mid, key: key, value: value, at: index + 1)
+        else if index < key.index(before: key.endIndex) {
+            let nextIndex = key.index(after: index)
+            node.mid = insert(from: node.mid, key: key, value: value, at: nextIndex)
         }
         else {
             node.value = value
@@ -46,17 +47,26 @@ public class TST<Value> {
     
     public func get<T: StringProtocol>(key: T) -> Value? {
         if key.isEmpty { return nil }
-        let node = get(from: root, key: key, at: 0)
+        let node = get(from: root, key: key, at: key.startIndex)
         return node?.value
     }
     
-    private func get<T: StringProtocol>(from node: Node?, key: T, at index: Int) -> Node? {
+    private func get<T: StringProtocol>(from node: Node?, key: T, at index: T.Index) -> Node? {
         guard let someNode = node else { return nil }
         let char = key[index]
-        if char < someNode.char { return get(from: someNode.left, key: key, at: index) }
-        else if char > someNode.char { return get(from: someNode.right, key: key, at: index) }
-        else if index < key.count - 1 { return get(from: someNode.mid, key: key, at: index + 1) }
-        else { return node }
+        
+        if char < someNode.char {
+            return get(from: someNode.left, key: key, at: index)
+        }
+        else if char > someNode.char {
+            return get(from: someNode.right, key: key, at: index)
+        }
+        else if index < key.index(before: key.endIndex) {
+            return get(from: someNode.mid, key: key, at: key.index(after: index))
+        }
+        else {
+            return node
+        }
     }
     
     public func isEmpty() -> Bool {
@@ -65,23 +75,23 @@ public class TST<Value> {
     
     public func longestPrefix<T: StringProtocol>(of query: T) -> T.SubSequence? {
         if query.isEmpty { return nil }
-        var length = 0
         var node = root
-        var index = 0
+        var index = query.startIndex
+        var endIndex: T.Index?
         
-        while let someNode = node, index < query.count {
+        while let someNode = node, index < query.endIndex {
             let char = query[index]
             
             if char < someNode.char { node = someNode.left }
             else if char > someNode.char { node = someNode.right }
             else {
-                index += 1
-                if someNode.value != nil { length = index }
+                index = query.index(after: index)
+                if someNode.value != nil { endIndex = index }
                 node = someNode.mid
             }
         }
         
-        return query.subsequence(from: 0, length: length)
+        return endIndex.map { query.prefix(upTo: $0) } ?? ""
     }
     
     public func keys() -> [String] {
@@ -100,7 +110,7 @@ public class TST<Value> {
     
     public func prefixed<T: StringProtocol>(by prefix: T) -> [String] {
         if prefix.isEmpty { return [] }
-        let node = get(from: root, key: prefix, at: 0)
+        let node = get(from: root, key: prefix, at: prefix.startIndex)
         guard let someNode = node else { return [] }
         var keys = [String]()
         if someNode.value != nil { keys.append(String(prefix)) }
