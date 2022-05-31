@@ -10,7 +10,7 @@ public class HeapSort: Sort {
     public init() {}
     
     public func sort<T: Comparable>(_ array: inout [T]) {
-        var length = array.count - 1
+        var length = array.count
         var k = length / 2
         
         while k >= 0 {
@@ -19,8 +19,8 @@ public class HeapSort: Sort {
         }
         
         while length > 0 {
-            array.swapAt(0, length)
             length -= 1
+            array.swapAt(0, length)
             sink(&array, 0, length: length)
         }
     }

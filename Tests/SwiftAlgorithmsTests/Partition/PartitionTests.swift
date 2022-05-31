@@ -31,7 +31,7 @@ class PartitionTests: XCTestCase {
         let index = sut.partition(&array, low, high)
 
         for i in low...index { XCTAssertTrue(array[i] <= array[index]) }
-        for i in index+1...high { XCTAssertTrue(array[i] >= array[index] )}
+        for i in index+1...high { XCTAssertTrue(array[i] >= array[index]) }
     }
 
 }

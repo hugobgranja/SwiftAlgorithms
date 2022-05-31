@@ -25,8 +25,20 @@ class SortTests: XCTestCase {
         sort = nil
     }
     
-    func testSort() {
-        var array = [1,6,78,8,2392832,423,42,34,13405,1101,1,123,4,6980,193,4,2,5,6,8,9]
+    func testSortZero() {
+        var array = [Int]()
+        sort.sort(&array)
+        XCTAssertTrue(SortUtil.isSorted(array))
+    }
+    
+    func testSortOne() {
+        var array = [5]
+        sort.sort(&array)
+        XCTAssertTrue(SortUtil.isSorted(array))
+    }
+    
+    func testSortMultiple() {
+        var array = [6,78,8,2392832,423,42,34,13405,1101,1,123,4,6980,193,4,2,5,6,8,9]
         sort.sort(&array)
         XCTAssertTrue(SortUtil.isSorted(array))
     }

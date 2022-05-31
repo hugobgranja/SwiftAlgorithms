@@ -8,7 +8,10 @@ import XCTest
 
 class PartitionTestSuite: XCTestSuite {
     
-    private let suts: [() -> Partition] = [{ HoarePartition() }, { LomutoPartition() }]
+    private let suts: [() -> Partition] = [
+        { HoarePartition() },
+        { LomutoPartition() }
+    ]
     
     init() {
         super.init(name: NSStringFromClass(PartitionTests.self))
