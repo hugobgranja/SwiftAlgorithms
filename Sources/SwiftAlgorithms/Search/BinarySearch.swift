@@ -28,18 +28,13 @@ public class BinarySearch {
     
     public func indexOfIt<T: Comparable>(_ array: [T], _ element: T) -> Int? {
         var lowerBound = 0
-        var upperBound = array.count
+        var upperBound = array.count - 1
         
-        while lowerBound < upperBound {
+        while lowerBound <= upperBound {
             let mid = lowerBound + (upperBound - lowerBound) / 2
-            
-            if element < array[mid] {
-                upperBound = mid
-            } else if element > array[mid] {
-                lowerBound = mid + 1
-            } else {
-                return mid
-            }
+            if element < array[mid] { upperBound = mid - 1 }
+            else if element > array[mid] { lowerBound = mid + 1 }
+            else { return mid }
         }
         
         return nil
