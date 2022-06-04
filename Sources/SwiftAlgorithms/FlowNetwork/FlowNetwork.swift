@@ -8,25 +8,25 @@ import Foundation
 public class FlowNetwork {
     
     private var edges: Int
-    private var adjacencyLists: [[FlowEdge]]
+    private var adjacencyList: [[FlowEdge]]
     
     public init(vertices: Int) {
         self.edges = 0
-        self.adjacencyLists = [[FlowEdge]](repeating: [], count: vertices)
+        self.adjacencyList = [[FlowEdge]](repeating: [], count: vertices)
     }
     
     public func addEdge(_ edge: FlowEdge) {
-        adjacencyLists[edge.source].append(edge)
-        adjacencyLists[edge.destination].append(edge)
+        adjacencyList[edge.source].append(edge)
+        adjacencyList[edge.destination].append(edge)
         edges += 1
     }
     
     public func adjacentEdges(to vertex: Int) -> [FlowEdge] {
-        return adjacencyLists[vertex]
+        return adjacencyList[vertex]
     }
     
     public func vertexCount() -> Int {
-        return adjacencyLists.count
+        return adjacencyList.count
     }
     
     public func edgeCount() -> Int {

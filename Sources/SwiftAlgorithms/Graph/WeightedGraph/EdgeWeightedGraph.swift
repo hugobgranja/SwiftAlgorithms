@@ -8,30 +8,30 @@ import Foundation
 public class EdgeWeightedGraph: Graph {
     
     private var edges: Int
-    private var adjacencyLists: [[WeightedEdge]]
+    private var adjacencyList: [[WeightedEdge]]
     
     public init(vertices: Int) {
         self.edges = 0
-        self.adjacencyLists = [[WeightedEdge]](repeating: [], count: vertices)
+        self.adjacencyList = [[WeightedEdge]](repeating: [], count: vertices)
     }
     
     public func addEdge(v: Int, w: Int, weight: Double) {
         let edge = WeightedEdge(v: v, w: w, weight: weight)
-        adjacencyLists[v].append(edge)
-        adjacencyLists[w].append(edge)
+        adjacencyList[v].append(edge)
+        adjacencyList[w].append(edge)
         edges += 1
     }
     
     public func adjacentEdges(to vertex: Int) -> [WeightedEdge] {
-        return adjacencyLists[vertex]
+        return adjacencyList[vertex]
     }
     
     public func adjacent(to vertex: Int) -> [Int] {
-        return adjacencyLists[vertex].map(\.w)
+        return adjacencyList[vertex].map(\.w)
     }
     
     public func vertexCount() -> Int {
-        return adjacencyLists.count
+        return adjacencyList.count
     }
     
     public func edgeCount() -> Int {
@@ -39,7 +39,7 @@ public class EdgeWeightedGraph: Graph {
     }
     
     public func degree(of vertex: Int) -> Int {
-        return adjacencyLists[vertex].count
+        return adjacencyList[vertex].count
     }
     
     public func getEdges() -> [WeightedEdge] {
