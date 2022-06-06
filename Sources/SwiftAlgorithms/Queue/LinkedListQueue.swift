@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class LinkedListQueue<T>: Queue {
+public class LinkedListQueue<T> {
 
     private var elements: SinglyLinkedList<T>
     

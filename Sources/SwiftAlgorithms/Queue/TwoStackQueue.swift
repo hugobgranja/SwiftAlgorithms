@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class TwoStackQueue<T>: Queue {
+public class TwoStackQueue<T> {
     
     private var pushStack: ArrayStack<T>
     private var popStack: ArrayStack<T>
