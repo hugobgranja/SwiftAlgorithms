@@ -20,7 +20,7 @@ public class NFA {
     
     // O(regex.count).
     private func buildTransitionDigraph() throws {
-        let stack = ArrayStack<Int>()
+        var stack = ArrayStack<Int>()
         
         for index in 0..<regex.count {
             var lp = index

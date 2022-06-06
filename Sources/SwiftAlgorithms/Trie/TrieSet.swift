@@ -73,7 +73,7 @@ public class TrieSet {
     private func collect(node: Node, prefix: String) -> [String] {
         var collected = [String]()
         
-        let stack = ArrayStack<(Node, String)>()
+        var stack = ArrayStack<(Node, String)>()
         stack.push((node, ""))
         
         while let (node, suffix) = stack.pop() {

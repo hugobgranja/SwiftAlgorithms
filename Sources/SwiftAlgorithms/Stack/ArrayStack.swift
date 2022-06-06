@@ -5,9 +5,9 @@
 
 import Foundation
 
-public class ArrayStack<T>: Stack {
+public struct ArrayStack<T> {
     
-    private var elements: [T]
+    private(set) var elements: [T]
     
     public init() {
         elements = [T]()
@@ -17,15 +17,15 @@ public class ArrayStack<T>: Stack {
         elements = array
     }
     
-    public func push(_ element: T) {
+    public mutating func push(_ element: T) {
         elements.append(element)
     }
     
-    public func push(contentsOf array: [T]) {
+    public mutating func push(contentsOf array: [T]) {
         elements.append(contentsOf: array)
     }
     
-    public func pop() -> T? {
+    public mutating func pop() -> T? {
         return elements.popLast()
     }
     

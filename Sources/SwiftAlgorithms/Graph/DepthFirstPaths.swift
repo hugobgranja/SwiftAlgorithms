@@ -36,7 +36,7 @@ public class DepthFirstPaths {
     }
     
     private func dfsIterative(graph: Graph, source: Int) {
-        let stack = ArrayStack<Int>([source])
+        var stack = ArrayStack<Int>([source])
         
         while let vertex = stack.pop() {
             marked[vertex] = true

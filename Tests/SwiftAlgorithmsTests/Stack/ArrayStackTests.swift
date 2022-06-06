@@ -23,7 +23,7 @@ class ArrayStackTests: XCTestCase {
     func testInitArray() {
         let array = [1,2,3,4,5]
         let sut = ArrayStack(array)
-        XCTAssertTrue(isEqual(stack: sut, array: array))
+        XCTAssertEqual(array, sut.elements)
     }
     
     func testPush() {
@@ -34,7 +34,7 @@ class ArrayStackTests: XCTestCase {
     func testPushArray() {
         let array = [1,2,3,4,5]
         sut.push(contentsOf: array)
-        XCTAssertTrue(isEqual(stack: sut, array: array))
+        XCTAssertEqual(array, sut.elements)
     }
     
     func testPop() {
@@ -77,18 +77,4 @@ class ArrayStackTests: XCTestCase {
         XCTAssertEqual(sut.size(), 1)
     }
 
-}
-
-extension ArrayStackTests {
-    
-    func isEqual<T: Equatable>(stack: ArrayStack<T>, array: [T]) -> Bool {
-        var stackArray = [T]()
-        
-        while let element = stack.pop() {
-            stackArray.append(element)
-        }
-        
-        return stackArray.reversed() == array
-    }
-    
 }

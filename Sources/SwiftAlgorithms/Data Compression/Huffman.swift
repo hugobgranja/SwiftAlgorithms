@@ -70,7 +70,7 @@ public class Huffman {
     
     private func createCodeTable(node: Node) -> [String] {
         var codeTable = [String](repeating: "", count: radix)
-        let stack = ArrayStack<(Node, String)>([(node, "")])
+        var stack = ArrayStack<(Node, String)>([(node, "")])
         
         while let (node, code) = stack.pop() {
             if node.isLeaf() {
@@ -88,7 +88,7 @@ public class Huffman {
     
     private func encodeTrie(node: Node) -> BinaryDataBuilder {
         let builder = BinaryDataBuilder()
-        let stack = ArrayStack<Node>([node])
+        var stack = ArrayStack<Node>([node])
         
         while let node = stack.pop() {
             if node.isLeaf() {

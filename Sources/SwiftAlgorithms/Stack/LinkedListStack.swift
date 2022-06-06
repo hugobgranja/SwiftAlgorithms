@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class LinkedListStack<T>: Stack {
+public class LinkedListStack<T> {
  
     private var elements: SinglyLinkedList<T>
     

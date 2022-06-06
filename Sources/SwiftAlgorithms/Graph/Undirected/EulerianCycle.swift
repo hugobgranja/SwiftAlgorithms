@@ -27,7 +27,7 @@ public class EulerianCycle {
         let source = findNonIsolatedVertex(graph: graph) ?? 0
         var adj = createAuxAdjList(graph: graph)
         
-        let stack = ArrayStack<Int>([source])
+        var stack = ArrayStack<Int>([source])
         var cycle = [Int]()
         
         while var v = stack.pop() {

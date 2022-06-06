@@ -25,7 +25,7 @@ public class EulerianPath {
         
         var adj = createAuxAdjList(graph: graph)
         
-        let stack = ArrayStack<Int>([source])
+        var stack = ArrayStack<Int>([source])
         var path = [Int]()
         
         while var v = stack.pop() {
