@@ -34,27 +34,30 @@ public class KMP {
         dfa[firstCharValue][0] = 1
         var mismatchState = 0
         
-        for state in 1..<pattern.count {
-            for char in 0..<radix {
-                dfa[char][state] = dfa[char][mismatchState]
+        for (state, char) in zip(1..<pattern.count, pattern.dropFirst()) {
+            for radixChar in 0..<radix {
+                dfa[radixChar][state] = dfa[radixChar][mismatchState]
             }
             
-            let charValue = pattern.asciiValue(at: state)!
+            let charValue = Int(char.asciiValue!)
             dfa[charValue][state] = state + 1
             mismatchState = dfa[charValue][mismatchState]
         }
     }
     
-    public func search<T: StringProtocol>(_ text: T) -> Int? {
-        var i = 0, j = 0
+    public func search<T: StringProtocol>(_ text: T) -> String.Index? {
+        var index = text.startIndex
+        var j = 0
         
-        while i < text.count && j < patternLength {
-            let charValue = text.asciiValue(at: i)!
+        while index < text.endIndex && j < patternLength {
+            let charValue = Int(text[index].asciiValue!)
             j = dfa[charValue][j]
-            i += 1
+            index = text.index(after: index)
         }
         
-        if j == patternLength { return i - patternLength }
+        if j == patternLength {
+            return text.index(index, offsetBy: -patternLength)
+        }
         
         return nil
     }

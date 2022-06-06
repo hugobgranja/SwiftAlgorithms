@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class ThreeWayRadixQSort<T: StringProtocol> {
+public class ThreeWayRadixQSort {
     
     let cutOffToInsertionSort: Int
     
@@ -13,12 +13,12 @@ public class ThreeWayRadixQSort<T: StringProtocol> {
         self.cutOffToInsertionSort = 15
     }
     
-    public func sort(_ array: inout [T]) {
+    public func sort(_ array: inout [String]) {
         array.shuffle()
         sort(&array, 0, array.count - 1, 0)
     }
     
-    private func sort(_ array: inout [T], _ low: Int, _ high: Int, _ d: Int) {
+    private func sort(_ array: inout [String], _ low: Int, _ high: Int, _ d: Int) {
         guard high > low else { return }
         
         if high <= low + cutOffToInsertionSort {
@@ -32,7 +32,7 @@ public class ThreeWayRadixQSort<T: StringProtocol> {
         sort(&array, gt + 1, high, d)
     }
     
-    private func insertionSort(_ array: inout [T], low: Int, high: Int, d: Int) {
+    private func insertionSort(_ array: inout [String], low: Int, high: Int, d: Int) {
         for i in low...high {
             var j = i
             while j > low && array[j].dropFirst(d) < array[j - 1].dropFirst(d) {
@@ -42,7 +42,7 @@ public class ThreeWayRadixQSort<T: StringProtocol> {
         }
     }
     
-    private func partition(_ array: inout [T], low: Int, high: Int, d: Int) -> (Int, Int) {
+    private func partition(_ array: inout [String], low: Int, high: Int, d: Int) -> (Int, Int) {
         var lt = low, i = low + 1, gt = high
         let v = charAt(array[low], d)
         
@@ -65,8 +65,9 @@ public class ThreeWayRadixQSort<T: StringProtocol> {
         return (lt, gt)
     }
     
-    private func charAt(_ str: T, _ index: Int) -> Character {
-        return index < str.count ? "\0" : str[index]
+    private func charAt(_ str: String, _ index: Int) -> Character {
+        let strOffset = str.index(str.startIndex, offsetBy: index)
+        return index < str.count ? "\0" : str[strOffset]
     }
     
 }

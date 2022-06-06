@@ -9,14 +9,14 @@ import XCTest
 class RabinKarpTests: XCTestCase {
     
     func testSearchMatch() {
-        let rk = RabinKarp(pattern: "ABABAC")
-        let index = rk.search("AABACAABABACAA")
+        let rk = RabinKarp(pattern: Array("ABABAC"))
+        let index = rk.search(Array("AABACAABABACAA"))
         XCTAssertEqual(index, 6)
     }
     
     func testSearchNoMatch() {
-        let rk = RabinKarp(pattern: "ABABAC")
-        let index = rk.search("AABACAABABABCA")
+        let rk = RabinKarp(pattern: Array("ABABAC"))
+        let index = rk.search(Array("AABACAABABABCA"))
         XCTAssertNil(index)
     }
 

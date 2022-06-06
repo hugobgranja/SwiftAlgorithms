@@ -7,12 +7,12 @@ import Foundation
 
 public class NFA {
     
-    private let regex: String
+    private let regex: [Character]
     private let graph: Digraph
     private let metacharacters: [Character]
     
     public init(regex: String) throws {
-        self.regex = regex
+        self.regex = Array(regex)
         self.graph = Digraph(vertices: regex.count + 1)
         self.metacharacters = ["*", "+", "|", "(", ")"]
         try buildTransitionDigraph()
@@ -22,9 +22,8 @@ public class NFA {
     private func buildTransitionDigraph() throws {
         var stack = ArrayStack<Int>()
         
-        for index in 0..<regex.count {
+        for (index, currentChar) in regex.enumerated() {
             var lp = index
-            let currentChar = regex[index]
             
             if currentChar == "(" || currentChar == "|" {
                 stack.push(index)

@@ -15,15 +15,15 @@ public class LSDSort {
     
     public init() {}
     
-    public func sortASCII(_ array: inout [String], charCount: Int) {
+    public func sortASCII(_ array: inout [[Character]], charCount: Int) {
         let radix = 128
-        var aux = [String](repeating: "", count: array.count)
+        var aux = [[Character]](repeating: [], count: array.count)
         
         for d in (0..<charCount).reversed() {
             var count = [Int](repeating: 0, count: radix + 1)
             
             for i in 0..<array.count {
-                let value = array[i].asciiValue(at: d)!
+                let value = Int(array[i][d].asciiValue!)
                 count[value + 1] += 1
             }
             
@@ -32,7 +32,7 @@ public class LSDSort {
             }
             
             for i in 0..<array.count {
-                let value = array[i].asciiValue(at: d)!
+                let value = Int(array[i][d].asciiValue!)
                 aux[count[value]] = array[i]
                 count[value] += 1
             }

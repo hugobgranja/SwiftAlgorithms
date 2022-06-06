@@ -7,13 +7,13 @@ import Foundation
 
 public class RabinKarp {
     
-    private let pattern: String
+    private let pattern: [Character]
     private let radix: UInt64
     private let prime: UInt64
     private var rm: UInt64! // R^(M-1) % Q
     private var patternHash: UInt64!
     
-    public init(pattern: String) {
+    public init(pattern: [Character]) {
         self.pattern = pattern
         self.radix = 128
         self.prime = 2_147_483_629
@@ -31,35 +31,33 @@ public class RabinKarp {
         return rm
     }
     
-    private func hash(key: String) -> UInt64 {
+    private func hash(key: [Character]) -> UInt64 {
         var hash: UInt64 = 0
         
         for i in 0..<pattern.count {
-            let charValue = UInt64(key.asciiValue(at: i)!)
-            print(charValue)
+            let charValue = UInt64(key[i].asciiValue!)
             hash = (radix * hash + charValue) % prime
         }
         
         return hash
     }
     
-    public func search(_ text: String) -> Int? {
+    public func search(_ text: [Character]) -> Int? {
         guard text.count >= pattern.count else { return nil }
-        
         var textHash = hash(key: text)
         
-        if patternHash == textHash && isMatch(text: text, from: 0) {
+        if patternHash == textHash && pattern == text {
             return 0
         }
         
         for i in pattern.count..<text.count {
-            let leadingValue = UInt64(text.asciiValue(at: i - pattern.count)!)
-            let currentValue = UInt64(text.asciiValue(at: i)!)
+            let leadingValue = UInt64(text[i - pattern.count].asciiValue!)
+            let currentValue = UInt64(text[i].asciiValue!)
             textHash = (textHash + prime - rm * leadingValue % prime) % prime
             textHash = (textHash * radix + currentValue) % prime
             
             let offset = i - pattern.count + 1
-            if patternHash == textHash && isMatch(text: text, from: offset) {
+            if patternHash == textHash && isMatch(text: text, index: offset) {
                 return offset
             }
         }
@@ -67,10 +65,8 @@ public class RabinKarp {
         return nil
     }
     
-    private func isMatch(text: String, from start: Int) -> Bool {
-        let startIndex = text.index(text.startIndex, offsetBy: start)
-        let endIndex = text.index(startIndex, offsetBy: pattern.count)
-        return pattern == text[startIndex..<endIndex]
+    private func isMatch(text: [Character], index: Int) -> Bool {
+        return ArraySlice(pattern) == text.suffix(from: index).prefix(pattern.count)
     }
     
 }

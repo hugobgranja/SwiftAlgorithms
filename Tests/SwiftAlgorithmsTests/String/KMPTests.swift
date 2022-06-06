@@ -9,9 +9,12 @@ import XCTest
 class KMPTests: XCTestCase {
     
     func testSearchMatch() {
-        let kmp = KMP(pattern: "ABABAC")
-        let index = kmp.search("AABACAABABACAA")
-        XCTAssertEqual(index, 6)
+        let text = "AABACAABABACAA"
+        let pattern = "ABABAC"
+        let kmp = KMP(pattern: pattern)
+        let index = kmp.search(text)
+        let expected = text.index(text.startIndex, offsetBy: 6)
+        XCTAssertEqual(index, expected)
     }
     
     func testSearchNoMatch() {

@@ -14,10 +14,10 @@ import Foundation
 public class BoyerMoore {
     
     private let radix: Int
-    private let pattern: String
+    private let pattern: [Character]
     private var bcSkip: [Int]
     
-    public init(pattern: String) {
+    public init(pattern: [Character]) {
         self.radix = 128
         self.pattern = pattern
         self.bcSkip = [Int](repeating: -1, count: radix)
@@ -31,7 +31,7 @@ public class BoyerMoore {
         }
     }
     
-    public func search(_ text: String) -> Int? {
+    public func search(_ text: [Character]) -> Int? {
         var i = 0
         
         while i < text.count - pattern.count {
@@ -40,8 +40,8 @@ public class BoyerMoore {
             var mismatchFound = false
             
             while j >= 0 && !mismatchFound {
-                let patternCharValue = pattern.asciiValue(at: j)!
-                let textCharValue = text.asciiValue(at: i + j)!
+                let patternCharValue = Int(pattern[j].asciiValue!)
+                let textCharValue = Int(text[i + j].asciiValue!)
                 
                 if patternCharValue != textCharValue {
                     skip = max(1, j - bcSkip[textCharValue])

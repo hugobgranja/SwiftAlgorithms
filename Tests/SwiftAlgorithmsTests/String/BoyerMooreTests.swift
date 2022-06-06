@@ -9,14 +9,14 @@ import XCTest
 class BoyerMooreTests: XCTestCase {
     
     func testSearchMatch() {
-        let bm = BoyerMoore(pattern: "ABABAC")
-        let index = bm.search("AABACAABABACAA")
+        let bm = BoyerMoore(pattern: Array("ABABAC"))
+        let index = bm.search(Array("AABACAABABACAA"))
         XCTAssertEqual(index, 6)
     }
     
     func testSearchNoMatch() {
-        let bm = BoyerMoore(pattern: "ABABAC")
-        let index = bm.search("AABACAABABABCA")
+        let bm = BoyerMoore(pattern: Array("ABABAC"))
+        let index = bm.search(Array("AABACAABABABCA"))
         XCTAssertNil(index)
     }
 

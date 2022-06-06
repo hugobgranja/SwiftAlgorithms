@@ -29,7 +29,9 @@ class LSDSortTests: XCTestCase {
             "bed", "bee", "cab",
             "dab", "dad", "ebb",
             "fad", "fed", "fee"
-        ]
+        ].map {
+            Array($0)
+        }
         
         XCTAssertEqual(array, expected)
     }
@@ -44,13 +46,15 @@ class LSDSortTests: XCTestCase {
 
 extension LSDSortTests {
     
-    func createSortASCIITestData() -> [String] {
+    func createSortASCIITestData() -> [[Character]] {
         return [
             "dab", "cab", "fad",
             "bad", "dad", "ebb",
             "ace", "add", "fed",
             "bed", "fee", "bee"
-        ]
+        ].map {
+            Array($0)
+        }
     }
     
     func createSortIntTestData() -> [Int] {
