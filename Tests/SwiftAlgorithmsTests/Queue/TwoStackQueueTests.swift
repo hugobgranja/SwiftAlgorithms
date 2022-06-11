@@ -22,7 +22,7 @@ class TwoStackQueueTests: XCTestCase {
     
     func testEnqueue() {
         sut.enqueue(1)
-        XCTAssertEqual(sut.size(), 1)
+        XCTAssertEqual(sut.count, 1)
     }
     
     func testDequeue() {
@@ -50,19 +50,19 @@ class TwoStackQueueTests: XCTestCase {
     }
     
     func testSize() {
-        XCTAssertEqual(sut.size(), 0)
+        XCTAssertEqual(sut.count, 0)
         
         _ = sut.dequeue()
-        XCTAssertEqual(sut.size(), 0)
+        XCTAssertEqual(sut.count, 0)
         
         sut.enqueue(1)
-        XCTAssertEqual(sut.size(), 1)
+        XCTAssertEqual(sut.count, 1)
         
         sut.enqueue(2)
-        XCTAssertEqual(sut.size(), 2)
+        XCTAssertEqual(sut.count, 2)
         
         _ = sut.dequeue()
-        XCTAssertEqual(sut.size(), 1)
+        XCTAssertEqual(sut.count, 1)
     }
 
 }

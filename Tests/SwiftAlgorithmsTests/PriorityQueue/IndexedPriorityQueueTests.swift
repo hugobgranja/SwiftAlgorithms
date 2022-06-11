@@ -22,7 +22,7 @@ class IndexedPriorityQueueTests: XCTestCase {
     
     func testEnqueue() {
         addTestData()
-        XCTAssertEqual(sut.size(), 3)
+        XCTAssertEqual(sut.count, 3)
     }
     
     func testDequeue() {
@@ -54,16 +54,16 @@ class IndexedPriorityQueueTests: XCTestCase {
     }
     
     func testSize() {
-        XCTAssertEqual(sut.size(), 0)
+        XCTAssertEqual(sut.count, 0)
         
         _ = sut.dequeue()
-        XCTAssertEqual(sut.size(), 0)
+        XCTAssertEqual(sut.count, 0)
         
         addTestData()
-        XCTAssertEqual(sut.size(), 3)
+        XCTAssertEqual(sut.count, 3)
         
         _ = sut.dequeue()
-        XCTAssertEqual(sut.size(), 2)
+        XCTAssertEqual(sut.count, 2)
     }
     
     func testContains() {
@@ -98,7 +98,7 @@ class IndexedPriorityQueueTests: XCTestCase {
     func testDelete() {
         addTestData()
         sut.delete(index: 1)
-        XCTAssertEqual(sut.size(), 2)
+        XCTAssertEqual(sut.count, 2)
         assertPairsEqual(sut.dequeue(), (2, "Two"))
     }
     

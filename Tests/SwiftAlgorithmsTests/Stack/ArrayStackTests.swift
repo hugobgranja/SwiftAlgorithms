@@ -28,7 +28,7 @@ class ArrayStackTests: XCTestCase {
     
     func testPush() {
         sut.push(1)
-        XCTAssertEqual(sut.size(), 1)
+        XCTAssertEqual(sut.count, 1)
     }
     
     func testPushArray() {
@@ -62,19 +62,19 @@ class ArrayStackTests: XCTestCase {
     }
     
     func testSize() {
-        XCTAssertEqual(sut.size(), 0)
+        XCTAssertEqual(sut.count, 0)
         
         _ = sut.pop()
-        XCTAssertEqual(sut.size(), 0)
+        XCTAssertEqual(sut.count, 0)
         
         sut.push(1)
-        XCTAssertEqual(sut.size(), 1)
+        XCTAssertEqual(sut.count, 1)
         
         sut.push(2)
-        XCTAssertEqual(sut.size(), 2)
+        XCTAssertEqual(sut.count, 2)
         
         _ = sut.pop()
-        XCTAssertEqual(sut.size(), 1)
+        XCTAssertEqual(sut.count, 1)
     }
 
 }

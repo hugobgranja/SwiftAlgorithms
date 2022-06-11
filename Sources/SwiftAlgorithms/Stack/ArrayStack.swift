@@ -17,6 +17,8 @@ public struct ArrayStack<T> {
         elements = array
     }
     
+    public var count: Int { elements.count }
+    
     public mutating func push(_ element: T) {
         elements.append(element)
     }
@@ -35,10 +37,6 @@ public struct ArrayStack<T> {
     
     public func isEmpty() -> Bool {
         return elements.isEmpty
-    }
-    
-    public func size() -> Int {
-        return elements.count
     }
     
 }

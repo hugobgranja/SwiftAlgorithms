@@ -15,6 +15,8 @@ public class TwoStackQueue<T> {
         popStack = ArrayStack<T>()
     }
     
+    public var count: Int { pushStack.count + popStack.count }
+    
     public func enqueue(_ element: T) {
         pushStack.push(element)
     }
@@ -33,10 +35,6 @@ public class TwoStackQueue<T> {
     
     public func isEmpty() -> Bool {
         return pushStack.isEmpty() && popStack.isEmpty()
-    }
-    
-    public func size() -> Int {
-        return pushStack.size() + popStack.size()
     }
     
     private func movePushToPop() {

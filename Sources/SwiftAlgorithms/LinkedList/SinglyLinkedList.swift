@@ -17,7 +17,7 @@ public class SinglyLinkedList<T>: LinkedList {
         }
     }
     
-    private var count: Int
+    public private(set) var count: Int
     fileprivate var firstNode: Node<T>?
     fileprivate var lastNode: Node<T>?
     
@@ -62,11 +62,6 @@ public class SinglyLinkedList<T>: LinkedList {
     public func isEmpty() -> Bool {
         return firstNode == nil
     }
-    
-    public func size() -> Int {
-        return count
-    }
-    
     
 }
 

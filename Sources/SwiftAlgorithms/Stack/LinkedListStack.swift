@@ -13,6 +13,8 @@ public class LinkedListStack<T> {
         elements = SinglyLinkedList<T>()
     }
     
+    public var count: Int { elements.count }
+    
     public func push(_ element: T) {
         elements.prepend(element)
     }
@@ -27,10 +29,6 @@ public class LinkedListStack<T> {
     
     public func isEmpty() -> Bool {
         return elements.isEmpty()
-    }
-    
-    public func size() -> Int {
-        return elements.size()
     }
     
 }

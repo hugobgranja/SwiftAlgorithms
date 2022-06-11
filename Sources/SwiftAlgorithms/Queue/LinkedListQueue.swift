@@ -13,6 +13,8 @@ public class LinkedListQueue<T> {
         elements = SinglyLinkedList<T>()
     }
     
+    public var count: Int { elements.count }
+    
     public func enqueue(_ element: T) {
         elements.append(element)
     }
@@ -28,10 +30,5 @@ public class LinkedListQueue<T> {
     public func isEmpty() -> Bool {
         return elements.isEmpty()
     }
-    
-    public func size() -> Int {
-        return elements.size()
-    }
-    
     
 }

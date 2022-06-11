@@ -11,7 +11,7 @@ public class IndexedPriorityQueue<T> {
     private var pq: [Int]
     private var qp: [Int]
     private var keys: [T?]
-    private var count: Int
+    public private(set) var count: Int
     
     public init(length: Int, isLowerPriority: @escaping (T,T) -> Bool) {
         self.isLowerPriority = isLowerPriority
@@ -31,11 +31,11 @@ public class IndexedPriorityQueue<T> {
     }
     
     public func dequeue() -> (Int, T)? {
-        guard size() > 0 else { return nil }
+        guard count > 0 else { return nil }
         
         let index = pq[0]
         let key = keys[pq[0]]!
-        swap(0, size() - 1)
+        swap(0, count - 1)
         count -= 1
         sink(0)
         qp[index] = -1
@@ -51,10 +51,6 @@ public class IndexedPriorityQueue<T> {
     
     public func contains(index: Int) -> Bool {
         return qp[index] != -1
-    }
-    
-    public func size() -> Int {
-        return count
     }
     
     public func peekIndex() -> Int? {
@@ -136,14 +132,13 @@ public class IndexedPriorityQueue<T> {
     }
     
     private func sink(_ k: Int) {
-        let end = size()
         var k = k, leftIndex = left(k)
         
-        while leftIndex < end {
+        while leftIndex < count {
             let rightIndex = right(k)
             var swapIndex = leftIndex
             
-            if rightIndex < end && isLowerPriority(i: leftIndex, j: rightIndex) { swapIndex = rightIndex }
+            if rightIndex < count && isLowerPriority(i: leftIndex, j: rightIndex) { swapIndex = rightIndex }
             if isLowerPriority(i: swapIndex, j: k) { break }
             swap(k, swapIndex)
             

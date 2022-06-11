@@ -57,7 +57,7 @@ public class Huffman {
             }
         }
         
-        while pq.size() > 1 {
+        while pq.count > 1 {
             let left = pq.dequeue()
             let right = pq.dequeue()
             let frequency = (left?.frequency ?? 0) + (right?.frequency ?? 0)

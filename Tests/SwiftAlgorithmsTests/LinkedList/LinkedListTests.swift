@@ -76,22 +76,22 @@ class LinkedListTests: XCTestCase {
     }
     
     func testSize() {
-        XCTAssertEqual(sut.size(), 0)
+        XCTAssertEqual(sut.count, 0)
         
         _ = sut.removeFirst()
-        XCTAssertEqual(sut.size(), 0)
+        XCTAssertEqual(sut.count, 0)
         
         sut.append(1)
-        XCTAssertEqual(sut.size(), 1)
+        XCTAssertEqual(sut.count, 1)
         
         sut.prepend(2)
-        XCTAssertEqual(sut.size(), 2)
+        XCTAssertEqual(sut.count, 2)
         
         _ = sut.removeFirst()
-        XCTAssertEqual(sut.size(), 1)
+        XCTAssertEqual(sut.count, 1)
         
         _ = sut.removeFirst()
-        XCTAssertEqual(sut.size(), 0)
+        XCTAssertEqual(sut.count, 0)
     }
 
 }

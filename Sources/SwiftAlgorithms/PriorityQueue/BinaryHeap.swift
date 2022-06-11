@@ -15,17 +15,18 @@ public class BinaryHeap<T>: PriorityQueue {
         self.isLowerPriority = isLowerPriority
     }
     
+    public var count: Int { heap.count }
+    
     public func enqueue(_ element: T) {
         heap.append(element)
         swim(heap.count - 1)
     }
     
     public func dequeue() -> T? {
-        let end = size()
-        guard end > 0 else { return nil }
+        guard count > 0 else { return nil }
         
         let root = heap[0]
-        heap.swapAt(0, end - 1)
+        heap.swapAt(0, count - 1)
         heap.removeLast()
         sink(0)
         
@@ -38,10 +39,6 @@ public class BinaryHeap<T>: PriorityQueue {
     
     public func isEmpty() -> Bool {
         return heap.isEmpty
-    }
-    
-    public func size() -> Int {
-        return heap.count
     }
     
     private func parent(_ index: Int) -> Int {
@@ -68,14 +65,13 @@ public class BinaryHeap<T>: PriorityQueue {
     }
     
     private func sink(_ k: Int) {
-        let end = size()
         var k = k, leftIndex = left(k)
         
-        while leftIndex < end {
+        while leftIndex < count {
             let rightIndex = right(k)
             var swapIndex = leftIndex
             
-            if rightIndex < end && isLowerPriority(heap[leftIndex], heap[rightIndex]) { swapIndex = rightIndex }
+            if rightIndex < count && isLowerPriority(heap[leftIndex], heap[rightIndex]) { swapIndex = rightIndex }
             if isLowerPriority(heap[swapIndex], heap[k]) { break }
             heap.swapAt(k, swapIndex)
             
