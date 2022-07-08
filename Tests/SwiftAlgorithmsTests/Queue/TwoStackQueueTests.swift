@@ -40,13 +40,13 @@ class TwoStackQueueTests: XCTestCase {
     }
     
     func testIsEmpty() {
-        XCTAssertTrue(sut.isEmpty())
+        XCTAssertTrue(sut.isEmpty)
         
         sut.enqueue(1)
-        XCTAssertFalse(sut.isEmpty())
+        XCTAssertFalse(sut.isEmpty)
         
         _ = sut.dequeue()
-        XCTAssertTrue(sut.isEmpty())
+        XCTAssertTrue(sut.isEmpty)
     }
     
     func testSize() {
