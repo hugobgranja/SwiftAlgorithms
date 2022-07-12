@@ -7,10 +7,10 @@ import Foundation
 
 public struct Deque<T> {
     
-    private let capacity: Int
-    private var ring: [T?]
-    private var start: Int
-    private var end: Int
+    fileprivate let capacity: Int
+    fileprivate var ring: [T?]
+    fileprivate var start: Int
+    fileprivate var end: Int
     var count: Int
     
     public init(capacity: Int) {
@@ -66,6 +66,39 @@ public struct Deque<T> {
         end -= 1
         if end < 0 { end = capacity  - 1 }
         return ring[end]
+    }
+    
+}
+
+extension Deque: Sequence {
+    
+    public typealias Iterator = DequeIterator
+    public typealias Element = T
+    
+    public func makeIterator() -> DequeIterator<T> {
+        return DequeIterator(self)
+    }
+    
+}
+
+public struct DequeIterator<T>: IteratorProtocol {
+    
+    let deque: Deque<T>
+    var index: Int
+    var count: Int
+    
+    public init(_ deque: Deque<T>) {
+        self.deque = deque
+        self.index = deque.start
+        self.count = 0
+    }
+    
+    public mutating func next() -> T? {
+        guard count < deque.count else { return nil }
+        let next = deque.ring[index]
+        index = (index + 1) % deque.capacity
+        count += 1
+        return next
     }
     
 }

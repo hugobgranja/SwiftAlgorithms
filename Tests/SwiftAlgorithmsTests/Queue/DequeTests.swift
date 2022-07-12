@@ -104,5 +104,21 @@ class DequeTests: XCTestCase {
         XCTAssertEqual(sut.popLast(), 4)
     }
     
+    func testSequence() {
+        let values = [0,1,2,3,4]
+        
+        for value in values { sut.append(value) }
+        
+        for value in values {
+            sut.popFirst()
+            sut.append(value + 5)
+        }
+        
+        let expected = [5,6,7,8,9]
+        for (index, elem) in sut.enumerated() {
+            XCTAssertEqual(elem, expected[index])
+        }
+    }
+    
 }
 
