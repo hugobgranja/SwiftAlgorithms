@@ -11,7 +11,7 @@ public struct Deque<T> {
     fileprivate var ring: [T?]
     fileprivate var start: Int
     fileprivate var end: Int
-    var count: Int
+    public var count: Int
     
     public init(capacity: Int) {
         self.capacity = capacity
