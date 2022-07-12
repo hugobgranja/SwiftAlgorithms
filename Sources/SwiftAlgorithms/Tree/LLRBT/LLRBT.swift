@@ -8,7 +8,7 @@ import Foundation
 
 public class LLRBT<Key, Value>: BinarySearchTree where Key: Comparable {
     
-    public var root: RBTNode<Key,Value>?
+    fileprivate var root: RBTNode<Key,Value>?
     
     public init() {}
     

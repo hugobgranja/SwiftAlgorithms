@@ -8,8 +8,8 @@ import Foundation
 
 public class CLRSRBT<Key, Value>: BinarySearchTree where Key: Comparable {
     
-    public var root: CLRSNode<Key,Value>
-    public var nilNode: CLRSNode<Key,Value>
+    fileprivate var root: CLRSNode<Key,Value>
+    fileprivate var nilNode: CLRSNode<Key,Value>
     
     public init() {
         self.nilNode = .none(CLRSNilNode())
