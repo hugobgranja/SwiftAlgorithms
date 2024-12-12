@@ -6,9 +6,6 @@
 import Foundation
 
 public protocol BinarySearchTree: BinaryTree {
-    
-    associatedtype Key
-    associatedtype Value
     typealias KeyValuePair = (key: Key, value: Value)
     
     func put(key: Key, value: Value)

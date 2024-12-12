@@ -7,11 +7,11 @@ import Foundation
 
 public class SinglyLinkedList<T>: LinkedList {
 
-    fileprivate class Node<T> {
-        public var element: T
-        public var next: Node<T>?
-        
-        init(_ element: T, next: Node<T>?) {
+    fileprivate class Node<E> {
+        public var element: E
+        public var next: Node<E>?
+
+        init(_ element: E, next: Node<E>?) {
             self.element = element
             self.next = next
         }
